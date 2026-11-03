@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>БрендUa — Інтернет-магазин одягу</title>
+    <meta name="description" content="Український одяг із бездоганною посадкою. Знайдіть свій розмір і базові речі для гардероба.">
+
+    <!-- Підключення шрифтів Noto Sans TC та DM Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+    
+    <!-- Підключення іконок Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            primary: '#1a2b4c',
+                            deep: '#1e2b48',
+                            'deep-hover': '#111827',
+                            ink: '#1b2a47',
+                            'ink-hover': '#22385f',
+                            accent: '#A64B35',
+                            beige: '#f4efea',
+                            'beige-hover': '#e8dfd5',
+                            input: '#dedede'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <!-- Головний файл стилів -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="relative">
+    <a href="#main-content" class="skip-link">Перейти до основного вмісту</a>
+
+    <!-- Шапка сайту (Header) -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
+            <a href="index.html" class="flex items-center" aria-label="БрендUa — головна сторінка">
+                <img src="assets/images/logo.svg" alt="Логотип БрендUa">
+            </a>
+            
+            <nav class="hidden md:flex items-center space-x-8" aria-label="Головна навігація">
+                <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium transition">Головна</a>
+                <a href="catalog.html" class="text-gray-700 hover:text-blue-600 font-medium transition">Каталог</a>
+                <a href="about.html" class="text-gray-700 hover:text-blue-600 font-medium transition">Про нас</a>
+            </nav>
+
+            <div class="hidden sm:flex items-center space-x-4 sm:space-x-6">
+                <!-- Адаптивний блок пошуку -->
+                <div class="relative flex items-center">
+                    <button id="search-btn" type="button" aria-label="Пошук по сайту" aria-expanded="false" aria-controls="search-field" class="bg-transparent !text-gray-600 hover:!text-blue-600 flex items-center justify-center gap-2 p-0 border-none shadow-none transition focus:outline-none cursor-pointer">
+                        <i class="fas fa-search text-gray-600"></i> 
+                        <span class="hidden xl:inline text-sm text-gray-600">Пошук</span>
+                    </button>
+
+                    <!-- Випадаюче поле пошуку -->
+                    <div id="search-field" class="hidden absolute right-0 top-full mt-3 w-72 bg-white p-2.5 rounded-xl shadow-xl border border-gray-200 z-50">
+                        <form action="catalog.html" method="GET" class="flex items-center gap-2">
+                            <label for="desktop-search" class="sr-only">Пошук товарів</label>
+                            <input id="desktop-search" name="q" type="text" placeholder="Пошук товарів..." class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 bg-white">
+                            <button type="submit" aria-label="Шукати" class="!bg-brand-deep !text-white px-3 py-1.5 rounded-lg text-xs font-medium hover:!bg-brand-deep-hover transition">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <a href="profile.html" aria-label="Особистий кабінет" class="text-gray-600 hover:text-blue-600 flex items-center gap-2 transition">
+                    <i class="fas fa-user"></i> 
+                    <span class="hidden xl:inline text-sm">Особистий кабінет</span>
+                </a>
+
+                <!-- Динамічна іконка кошика -->
+                <a href="cart.html" aria-label="Кошик покупок" class="text-gray-600 hover:text-blue-600 flex items-center gap-2 relative transition">
+                    <div class="relative">
+                        <i class="fas fa-shopping-bag text-lg"></i>
+                        <span class="cart-count absolute -top-2 -right-2 bg-blue-600 text-white text-xs rounded-full px-1.5 py-0.5 font-bold transition-transform duration-200">0</span>
+                    </div>
+                    <span class="hidden xl:inline text-sm">Кошик</span>
+                </a>
+
+                <button class="open-size-modal !bg-brand-deep hover:!bg-brand-ink-hover !text-white px-4 py-2 rounded-lg font-medium transition duration-200 hover:!shadow-md hover:!transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2" type="button">
+                    Підібрати розмір
+                </button>
+            </div>
+
+            <a href="cart.html" aria-label="Кошик покупок" class="mobile-cart sm:hidden text-gray-700 hover:text-blue-600 flex items-center justify-center relative transition w-11 h-11">
+                <i class="fas fa-shopping-bag text-lg"></i>
+                <span class="cart-count absolute top-1 right-1 bg-blue-600 text-white text-xs rounded-full px-1.5 py-0.5 font-bold transition-transform duration-200">0</span>
+            </a>
+
+            <button id="menu-btn" type="button" class="md:hidden bg-transparent !text-gray-700 hover:!text-blue-600 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg border-none" aria-label="Відкрити або закрити меню" aria-expanded="false" aria-controls="mobile-menu">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Випадаюче мобільне меню -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-200 px-4 pt-3 pb-6 space-y-4">
+            <form action="catalog.html" method="GET" class="flex items-center gap-2 pt-1">
+                <label for="mobile-search" class="sr-only">Пошук товарів</label>
+                <input id="mobile-search" name="q" type="text" placeholder="Пошук товарів..." class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900">
+                <button type="submit" aria-label="Шукати товари" class="!bg-brand-deep !text-white px-4 py-2 rounded-lg text-sm font-medium hover:!bg-brand-deep-hover transition">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+
+            <nav class="space-y-2 border-t border-gray-100 pt-2" aria-label="Мобільне меню">
+                <a href="index.html" class="block text-gray-700 hover:text-blue-600 font-medium py-1 transition">Головна</a>
+                <a href="catalog.html" class="block text-gray-700 hover:text-blue-600 font-medium py-1 transition">Каталог</a>
+                <a href="about.html" class="block text-gray-700 hover:text-blue-600 font-medium py-1 transition">Про нас</a>
+            </nav>
+
+            <div class="pt-3 border-t border-gray-100 flex items-center justify-between text-gray-700">
+                <a href="profile.html" class="flex items-center gap-2 hover:text-blue-600">
+                    <i class="fas fa-user"></i>
+                    <span class="text-sm">Кабінет</span>
+                </a>
+                <a href="cart.html" class="flex items-center gap-2 hover:text-blue-600 relative">
+                    <div class="relative">
+                        <i class="fas fa-shopping-bag text-lg"></i>
+                        <span class="cart-count absolute -top-2 -right-2 bg-blue-600 text-white text-xs rounded-full px-1.5 py-0.5 font-bold transition-transform duration-200">0</span>
+                    </div>
+                    <span class="text-sm">Кошик</span>
+                </a>
+            </div>
+
+            <div class="pt-2">
+                <button class="open-size-modal !bg-brand-deep hover:!bg-brand-ink-hover !text-white px-4 py-2.5 rounded-lg font-medium w-full text-center transition duration-200 hover:!shadow-md hover:!transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2" type="button">
+                    Підібрати розмір
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <p id="cart-live-region" class="sr-only" aria-live="polite" aria-atomic="true"></p>
+
+    <main id="main-content" class="main-content">
+        <!-- Hero-секція -->
+        <section class="hero-section" aria-labelledby="hero-title">
+            <div class="hero-content">
+                <h1 class="hero-title" id="hero-title">Українська ідентичність. Бездоганна посадка без складних таблиць і замірів.</h1>
+                <p class="hero-text">Твій комфорт — наш стандарт. Розумна система Fit Confidence автоматично розрахує ідеальний розмір для доставки по Україні чи за кордон.</p>
+                <a href="catalog.html" class="hero-buttons transition duration-200 hover:!bg-brand-ink-hover hover:!shadow-md hover:!transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 inline-block text-center">Знайти свій ідеальний лук</a>
+            </div>
+        </section>
+
+        <!-- Смужка переваг із кастомними SVG-іконками -->
+        <section class="features-strip" aria-label="Переваги бренду">
+            <div class="feature-item">
+                <img src="assets/icons/виробництво.svg" alt="" aria-hidden="true" class="w-8 h-8 object-contain">
+                <div>
+                    <strong>Виготовлено в Україні</strong>
+                    <span>Власне виробництво</span>
+                </div>
+            </div>
+            <div class="feature-item">
+                <img src="assets/icons/допомога.svg" alt="" aria-hidden="true" class="w-8 h-8 object-contain">
+                <div>
+                    <strong>Допомога з розміром</strong>
+                    <span>За твоїми параметрами</span>
+                </div>
+            </div>
+            <div class="feature-item">
+                <img src="assets/icons/обмін.svg" alt="" aria-hidden="true" class="w-8 h-8 object-contain">
+                <div>
+                    <strong>Зручний обмін</strong>
+                    <span>Протягом 14 днів</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секція категорій на Tailwind Grid -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" aria-labelledby="categories-title">
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-8" id="categories-title">Знайди свою базу</h2>
+            
+            <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <li class="bg-white rounded-xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300 hover:-translate-y-1">
+                    <a href="catalog.html" class="block focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-xl">
+                        <img src="assets/images/Футболки-категорія.png" alt="Категорія Футболки" loading="lazy" class="w-full aspect-[16/9] object-cover">
+                        <div class="p-4 flex items-center justify-between">
+                            <span class="font-semibold text-gray-900 text-lg">Футболки</span>
+                            <i class="fas fa-arrow-right text-blue-600" aria-hidden="true"></i>
+                        </div>
+                    </a>
+                </li>
+                <li class="bg-white rounded-xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300 hover:-translate-y-1">
+                    <a href="catalog.html" class="block focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-xl">
+                        <img src="assets/images/худі-категорія.png" alt="Категорія Світшоти та худі" loading="lazy" class="w-full aspect-[16/9] object-cover">
+                        <div class="p-4 flex items-center justify-between">
+                            <span class="font-semibold text-gray-900 text-lg">Світшоти та худі</span>
+                            <i class="fas fa-arrow-right text-blue-600" aria-hidden="true"></i>
+                        </div>
+                    </a>
+                </li>
+                <li class="bg-white rounded-xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300 hover:-translate-y-1">
+                    <a href="catalog.html" class="block focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-xl">
+                        <img src="assets/images/штани-категорія.png" alt="Категорія Штани" loading="lazy" class="w-full aspect-[16/9] object-cover">
+                        <div class="p-4 flex items-center justify-between">
+                            <span class="font-semibold text-gray-900 text-lg">Штани</span>
+                            <i class="fas fa-arrow-right text-blue-600" aria-hidden="true"></i>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Секція «Бестселери» -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" aria-labelledby="bestsellers-title">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-900" id="bestsellers-title">Бестселери</h2>
+                    <p class="text-gray-600 mt-1">Речі, які наші покупці обирають найчастіше.</p>
+                </div>
+                <div class="flex items-center space-x-2 mt-4 sm:mt-0">
+                    <button class="p-2 rounded-full border border-gray-300 hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-blue-500 bg-transparent" type="button" aria-label="Попередній слайд"><i class="fas fa-chevron-left text-gray-600" aria-hidden="true"></i></button>
+                    <button class="p-2 rounded-full border border-gray-300 hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-blue-500 bg-transparent" type="button" aria-label="Наступний слайд"><i class="fas fa-chevron-right text-gray-600" aria-hidden="true"></i></button>
+                </div>
+            </div>
+
+            <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Картка 1 -->
+              <!-- Картка 1 (Футболка базова) -->
+<li class="bg-white rounded-3xl overflow-hidden border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-gray-300 flex flex-col justify-between">
+    
+    <!-- Посилання на сторінку товару (обгортає фото та опис) -->
+    <a href="product.html" class="block group no-underline text-inherit p-0">
+        <!-- Блок із фотографією -->
+        <div class="overflow-hidden bg-brand-beige aspect-[302/320]">
+            <img src="assets/images/футболка-мол.png" alt="Футболка базова" loading="lazy" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300">
+        </div>
+
+        <!-- Інформація про товар -->
+        <div class="p-5">
+            <h3 class="text-lg font-bold text-gray-900 group-hover:text-blue-950 transition-colors">Футболка базова</h3>
+            <p class="text-sm text-gray-500 mt-1">Молочний · Бавовна</p>
+            <p class="text-xl font-bold text-gray-900 mt-2">790 грн</p>
+        </div>
+    </a>
+
+    <!-- Блок із кнопками (поза посиланням, щоб кнопки працювали окремо) -->
+    <div class="p-5 pt-0 flex items-center justify-between gap-3">
+        <div class="w-full">
+            <button type="button" class="add-to-cart-btn w-full !bg-brand-ink hover:!bg-brand-ink-hover !text-white py-2.5 px-4 rounded-full font-medium text-sm transition duration-200 shadow-md border-none cursor-pointer hover:!shadow-lg hover:!transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2">
+                В кошик
+            </button>
+            <div class="quantity-control hidden items-center justify-between bg-gray-100 rounded-full p-1 border border-gray-200">
+                <button class="decrease-btn w-9 h-9 rounded-full bg-white text-gray-800 font-bold shadow-sm hover:bg-gray-200 transition flex items-center justify-center border-none cursor-pointer" type="button" aria-label="Зменшити кількість Футболка базова">−</button>
+                <span class="item-count font-semibold text-gray-900 text-sm">1</span>
+                <button class="increase-btn w-9 h-9 rounded-full bg-white text-gray-800 font-bold shadow-sm hover:bg-gray-200 transition flex items-center justify-center border-none cursor-pointer" type="button" aria-label="Збільшити кількість Футболка базова">+</button>
+            </div>
+        </div>
+        <button type="button" aria-label="Додати в обране" aria-pressed="false" class="like-btn p-2.5 bg-transparent text-gray-500 hover:text-red-500 rounded-full border border-gray-200 hover:bg-gray-50 transition cursor-pointer">
+            <i class="far fa-heart text-lg" aria-hidden="true"></i>
+        </button>
+    </div>
+</li>
+
+                <!-- Картка 2 -->
+                <li class="bg-white rounded-xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="relative overflow-hidden bg-brand-beige aspect-[302/320]">
+                            <img src="assets/images/худі-сіре.png" alt="Худі вільного крою" loading="lazy" class="w-full h-full object-cover object-center hover:scale-105 transition duration-500">
+                        </div>
+                        <div class="p-4 pb-2">
+                            <h3 class="font-bold text-gray-900 text-lg mb-1">Худі вільного крою</h3>
+                            <p class="text-sm text-gray-500 mb-2">Сірий · Утеплений</p>
+                            <p class="font-bold text-gray-900 text-xl mb-4">1 890 грн</p>
+                        </div>
+                    </div>
+                    <div class="px-4 pb-4 flex items-center justify-between gap-3">
+                        <div class="w-full">
+                            <button class="add-to-cart-btn w-full !bg-brand-ink hover:!bg-brand-ink-hover !text-white py-2.5 px-4 rounded-full font-medium text-sm transition duration-200 text-center border-none cursor-pointer hover:!shadow-md hover:!transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2" type="button">
+                                В кошик
+                            </button>
+                            <div class="quantity-control hidden items-center justify-between bg-gray-100 rounded-full p-1 border border-gray-200">
+                                <button class="decrease-btn w-9 h-9 rounded-full bg-white text-gray-800 font-bold shadow-sm hover:bg-gray-200 transition flex items-center justify-center border-none cursor-pointer" type="button" aria-label="Зменшити кількість Худі вільного крою">−</button>
+                                <span class="item-count font-semibold text-gray-900 text-sm">1</span>
+                                <button class="increase-btn w-9 h-9 rounded-full bg-white text-gray-800 font-bold shadow-sm hover:bg-gray-200 transition flex items-center justify-center border-none cursor-pointer" type="button" aria-label="Збільшити кількість Худі вільного крою">+</button>
+                            </div>
+                        </div>
+                        <button class="like-btn p-2 text-gray-800 hover:text-red-500 transition text-2xl focus:outline-none border-none bg-transparent cursor-pointer" aria-label="Додати в обране" aria-pressed="false" type="button">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </li>
+
+                <!-- Картка 3 -->
+                <li class="bg-white rounded-xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="relative overflow-hidden bg-brand-beige aspect-[302/320]">
+                            <img src="assets/images/штани-чорні.png" alt="Штани карго" loading="lazy" class="w-full h-full object-cover object-center hover:scale-105 transition duration-500">
+                        </div>
+                        <div class="p-4 pb-2">
+                            <h3 class="font-bold text-gray-900 text-lg mb-1">Штани карго</h3>
+                            <p class="text-sm text-gray-500 mb-2">Чорний · Льон</p>
+                            <p class="font-bold text-gray-900 text-xl mb-4">1 850 грн</p>
+                        </div>
+                    </div>
+                    <div class="px-4 pb-4 flex items-center justify-between gap-3">
+                        <div class="w-full">
+                            <button class="add-to-cart-btn w-full !bg-brand-ink hover:!bg-brand-ink-hover !text-white py-2.5 px-4 rounded-full font-medium text-sm transition duration-200 text-center border-none cursor-pointer hover:!shadow-md hover:!transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2" type="button">
+                                В кошик
+                            </button>
+                            <div class="quantity-control hidden items-center justify-between bg-gray-100 rounded-full p-1 border border-gray-200">
+                                <button class="decrease-btn w-9 h-9 rounded-full bg-white text-gray-800 font-bold shadow-sm hover:bg-gray-200 transition flex items-center justify-center border-none cursor-pointer" type="button" aria-label="Зменшити кількість Штани карго">−</button>
+                                <span class="item-count font-semibold text-gray-900 text-sm">1</span>
+                                <button class="increase-btn w-9 h-9 rounded-full bg-white text-gray-800 font-bold shadow-sm hover:bg-gray-200 transition flex items-center justify-center border-none cursor-pointer" type="button" aria-label="Збільшити кількість Штани карго">+</button>
+                            </div>
+                        </div>
+                        <button class="like-btn p-2 text-gray-800 hover:text-red-500 transition text-2xl focus:outline-none border-none bg-transparent cursor-pointer" aria-label="Додати в обране" aria-pressed="false" type="button">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </li>
+
+                <!-- Картка 4 -->
+                <li class="bg-white rounded-xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="relative overflow-hidden bg-brand-beige aspect-[302/320]">
+                            <img src="assets/images/світшот-беж.png" alt="Світшот класичний" loading="lazy" class="w-full h-full object-cover object-center hover:scale-105 transition duration-500">
+                        </div>
+                        <div class="p-4 pb-2">
+                            <h3 class="font-bold text-gray-900 text-lg mb-1">Світшот класичний</h3>
+                            <p class="text-sm text-gray-500 mb-2">Бежевий · Бавовна</p>
+                            <p class="font-bold text-gray-900 text-xl mb-4">1 290 грн</p>
+                        </div>
+                    </div>
+                    <div class="px-4 pb-4 flex items-center justify-between gap-3">
+                        <div class="w-full">
+                            <button class="add-to-cart-btn w-full !bg-brand-ink hover:!bg-brand-ink-hover !text-white py-2.5 px-4 rounded-full font-medium text-sm transition duration-200 text-center border-none cursor-pointer hover:!shadow-md hover:!transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2" type="button">
+                                В кошик
+                            </button>
+                            <div class="quantity-control hidden items-center justify-between bg-gray-100 rounded-full p-1 border border-gray-200">
+                                <button class="decrease-btn w-9 h-9 rounded-full bg-white text-gray-800 font-bold shadow-sm hover:bg-gray-200 transition flex items-center justify-center border-none cursor-pointer" type="button" aria-label="Зменшити кількість Світшот класичний">−</button>
+                                <span class="item-count font-semibold text-gray-900 text-sm">1</span>
+                                <button class="increase-btn w-9 h-9 rounded-full bg-white text-gray-800 font-bold shadow-sm hover:bg-gray-200 transition flex items-center justify-center border-none cursor-pointer" type="button" aria-label="Збільшити кількість Світшот класичний">+</button>
+                            </div>
+                        </div>
+                        <button class="like-btn p-2 text-gray-800 hover:text-red-500 transition text-2xl focus:outline-none border-none bg-transparent cursor-pointer" aria-label="Додати в обране" aria-pressed="false" type="button">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="mt-8 flex flex-col sm:flex-row items-center justify-between text-sm">
+                <div class="flex items-center space-x-2 mb-4 sm:mb-0">
+                    <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-gray-300"></span>
+                    <span class="text-gray-500 ml-2">Бестселери</span>
+                </div>
+                <a href="catalog.html" class="text-blue-600 hover:text-blue-700 font-semibold transition focus:outline-none focus:underline">Переглянути всі бестселери &rarr;</a>
+            </div>
+        </section>
+
+        <!-- Секція відгуків -->
+        <section class="testimonials-section" aria-labelledby="testimonials-title">
+            <h2 class="section-title" id="testimonials-title">БрендUa на наших покупцях</h2>
+            <p class="section-subtitle">Реальні образи та відгуки — подивись, як речі сидять на різних параметрах.</p>
+            
+            <div class="testimonials-grid">
+                <article class="testimonial-card">
+                    <img src="assets/images/відгук1.png" alt="Покупець Олена у худі вільного крою" loading="lazy">
+                    <p class="testimonial-text">«М'яке й затишне. Розмір підійшов, рукави саме такої довжини, як хотіла.»</p>
+                    <h3 class="testimonial-author">Олена · Худі вільного крою</h3>
+                    <p class="author-params">Зріст 170 см, розмір M</p>
+                </article>
+                <article class="testimonial-card">
+                    <img src="assets/images/відгук2.png" alt="Покупець Андрій у базовій футболці" loading="lazy">
+                    <p class="testimonial-text">«Гарно тримає форму після прання. Взяв ще одну в іншому кольорі.»</p>
+                    <h3 class="testimonial-author">Андрій · Футболка базова</h3>
+                    <p class="author-params">Зріст 182 см, розмір L</p>
+                </article>
+                <article class="testimonial-card">
+                    <img src="assets/images/відгук3.png" alt="Покупець Марія у штанах прямого крою" loading="lazy">
+                    <p class="testimonial-text">«Зручна посадка і приємна тканина. Тепер це моя улюблена щоденна база.»</p>
+                    <h3 class="testimonial-author">Марія · Штани прямого крою</h3>
+                    <p class="author-params">Зріст 165 см, розмір S</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Блок Size Advisor -->
+        <section class="size-advisor-banner" aria-labelledby="advisor-title">
+            <div class="size-advisor-content">
+                <h2 id="advisor-title">Не впевнені у розмірі?</h2>
+                <p>Вкажіть свої параметри й отримайте рекомендацію. Обирайте одяг із впевненістю, а не навмання.<br><small>Займе близько 1 хвилини · Без реєстрації</small></p>
+            </div>
+            <div class="size-advisor-buttons">
+                <button class="open-size-modal btn-primary !bg-brand-primary hover:!bg-brand-ink-hover !text-white transition duration-200 hover:!shadow-md hover:!transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2" type="button">Підібрати розмір</button>
+                <a href="catalog.html" class="btn-secondary transition duration-200 hover:bg-brand-beige-hover hover:shadow-sm hover:!transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2">Каталог</a>
+            </div>
+        </section>
+        <!-- Секція відео-презентації -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12" aria-labelledby="video-title">
+        <div class="bg-brand-ink rounded-3xl p-8 sm:p-12 text-white text-center">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-4 text-gray-300" id="video-title">Як ми створюємо ідеальну посадку</h2>
+            <p class="text-gray-300 max-w-2xl mx-auto mb-8">Подивіться, як народжується кожна річ бренду БрендUa — від ескіза до готового виробу.</p>
+            <div class="aspect-video w-full mx-auto overflow-hidden rounded-2xl shadow-2xl bg-black">
+                <iframe class="w-full h-full border-0" src="https://www.youtube.com/embed/XYFywDbJaqc?si" title="Презентація бренду БрендUa" loading="lazy" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секція контактів та карти -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" aria-labelledby="map-title">
+        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-8" id="map-title">Наш шоурум та локація</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex flex-col justify-center space-y-4">
+                <div>
+                    <h3 class="font-bold text-lg text-gray-900">Адреса</h3>
+                    <p class="text-gray-600 mt-1">м. Київ, вул. Хрещатик, 22</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg text-gray-900">Графік роботи</h3>
+                    <p class="text-gray-600 mt-1">Пн–Нд: 10:00 – 20:00</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg text-gray-900">Контакти</h3>
+                    <p class="text-gray-600 mt-1">+38 (044) 123-45-67</p>
+                </div>
+            </div>
+            <div class="lg:col-span-2 overflow-hidden rounded-2xl border border-gray-200 shadow-sm min-h-[350px]">
+                <iframe class="w-full h-full min-h-[350px] border-0" src="https://www.google.com/maps?q=%D0%9A%D0%B8%D1%97%D0%B2,%20%D0%A5%D1%80%D0%B5%D1%89%D0%B0%D1%82%D0%B8%D0%BA%2022&output=embed" title="Карта розташування шоуруму БрендUa" loading="lazy" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+
+    <!-- Багатоколонковий футер -->
+    <footer class="bg-gray-900 text-gray-300 pt-12 pb-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <div class="space-y-3">
+                    <a href="index.html" class="inline-block focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md" aria-label="Головна сторінка">
+                        <img src="assets/images/logo.svg" alt="Логотип БрендUa" loading="lazy" class="h-12 w-auto brightness-0 invert">
+                    </a>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Український одяг на щодень.<br>Створено для твого комфорту.
+                    </p>
+                </div>
+
+                <div>
+                    <h2 class="text-white font-semibold text-base mb-3">Каталог</h2>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="catalog.html" class="hover:text-white focus:text-white focus:outline-none transition duration-200">Футболки</a></li>
+                        <li><a href="catalog.html" class="hover:text-white focus:text-white focus:outline-none transition duration-200">Світшоти та худі</a></li>
+                        <li><a href="catalog.html" class="hover:text-white focus:text-white focus:outline-none transition duration-200">Штани</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h2 class="text-white font-semibold text-base mb-3">Допомога покупцю</h2>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="delivery.html" class="hover:text-white focus:text-white focus:outline-none transition duration-200">Доставка й оплата</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h2 class="text-white font-semibold text-base mb-3">Зв'язок із нами</h2>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><span class="block">Пн–Пт: 09:00–18:00</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 space-y-4 sm:space-y-0">
+                <p>&copy; 2026 БрендUa. Всі права захищені.</p>
+                <div class="flex flex-wrap gap-x-6 gap-y-2">
+                    <a href="about.html" class="hover:text-white focus:text-white focus:outline-none transition duration-200">Політика конфіденційності</a>
+                    <a href="about.html" class="hover:text-white focus:text-white focus:outline-none transition duration-200">Публічна оферта</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- МОДАЛЬНЕ ВІКНО «ПІДБІР РОЗМІРУ» -->
+    <div id="size-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="size-modal-title" tabindex="-1">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl relative border border-gray-100">
+            <button id="close-modal-btn" type="button" aria-label="Закрити вікно підбору розміру" class="absolute top-6 right-6 text-gray-700 hover:text-black text-2xl font-bold focus:outline-none border-none bg-transparent cursor-pointer">
+                &times;
+            </button>
+
+            <h2 id="size-modal-title" class="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-6">Підбір розміру</h2>
+            
+            <p class="text-gray-800 font-medium mb-6 text-base">Введіть дані для визначення розміру</p>
+
+            <form action="#" method="POST" class="space-y-4">
+                <div>
+                    <label for="height-input" class="sr-only">Зріст у сантиметрах</label>
+                    <input id="height-input" name="height" type="text" inputmode="decimal" placeholder="Зріст:" class="w-full px-4 py-3 text-gray-700 bg-brand-input/60 border border-brand-ink rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-ink">
+                </div>
+
+                <div>
+                    <label for="weight-input" class="sr-only">Вага у кілограмах</label>
+                    <input id="weight-input" name="weight" type="text" inputmode="decimal" placeholder="Вага:" class="w-full px-4 py-3 text-gray-700 bg-brand-input/60 border border-brand-ink rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-ink">
+                </div>
+
+                <div class="pt-2">
+                    <button type="button" id="details-toggle" aria-expanded="false" aria-controls="details-content" class="w-full flex items-center justify-between text-gray-800 font-medium py-1 focus:outline-none border-none bg-transparent cursor-pointer">
+                        <span>Детальніше...</span>
+                        <span class="text-xl font-bold" aria-hidden="true">+</span>
+                    </button>
+                    <div id="details-content" class="hidden pt-3 space-y-3 text-sm text-gray-600">
+                        <label for="chest-input" class="sr-only">Обхват грудей у сантиметрах</label>
+                        <input id="chest-input" name="chest" type="text" inputmode="decimal" placeholder="Обхват грудей (см):" class="w-full px-4 py-2 bg-brand-input/40 border border-gray-300 rounded-lg">
+                        <label for="waist-input" class="sr-only">Обхват талії у сантиметрах</label>
+                        <input id="waist-input" name="waist" type="text" inputmode="decimal" placeholder="Обхват талії (см):" class="w-full px-4 py-2 bg-brand-input/40 border border-gray-300 rounded-lg">
+                    </div>
+                </div>
+
+                <div class="text-center pt-4">
+                    <button type="submit" class="!bg-brand-ink hover:!bg-brand-ink-hover !text-white font-medium px-8 py-2.5 rounded-full transition duration-200 shadow-md border-none cursor-pointer hover:!shadow-lg hover:!transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2">
+                        Розрахувати
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Скрипти -->
+    <script>
+        // Мобільне меню
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function setMobileMenuOpen(isOpen) {
+            mobileMenu.classList.toggle('hidden', !isOpen);
+            menuBtn.setAttribute('aria-expanded', String(isOpen));
+        }
+
+        menuBtn.addEventListener('click', () => {
+            const isOpen = menuBtn.getAttribute('aria-expanded') === 'true';
+            setMobileMenuOpen(!isOpen);
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                setMobileMenuOpen(false);
+            }
+        });
+
+        // Інтерактивне поле пошуку
+        const searchBtn = document.getElementById('search-btn');
+        const searchField = document.getElementById('search-field');
+        const searchInput = document.getElementById('desktop-search');
+
+        function setSearchOpen(isOpen) {
+            searchField.classList.toggle('hidden', !isOpen);
+            searchBtn.setAttribute('aria-expanded', String(isOpen));
+            if (isOpen) {
+                searchInput.focus();
+            }
+        }
+
+        if (searchBtn && searchField) {
+            searchBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                setSearchOpen(searchBtn.getAttribute('aria-expanded') !== 'true');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!searchField.contains(e.target) && !searchBtn.contains(e.target)) {
+                    setSearchOpen(false);
+                }
+            });
+        }
+
+        // ДИНАМІЧНИЙ КОШИК ТА КЕРУВАННЯ КІЛЬКІСТЮ НА КАРТКАХ
+        const cartCountBadges = document.querySelectorAll('.cart-count');
+
+        function updateOverallCart() {
+            let totalItems = 0;
+            document.querySelectorAll('.item-count').forEach(counter => {
+                const card = counter.closest('li');
+                const quantityControl = card.querySelector('.quantity-control');
+                if (!quantityControl.classList.contains('hidden')) {
+                    totalItems += parseInt(counter.textContent, 10) || 0;
+                }
+            });
+
+            cartCountBadges.forEach(badge => {
+                badge.textContent = totalItems;
+                badge.closest('a').setAttribute('aria-label', `Кошик покупок, товарів: ${totalItems}`);
+                badge.classList.add('scale-125');
+                setTimeout(() => {
+                    badge.classList.remove('scale-125');
+                }, 200);
+            });
+            document.getElementById('cart-live-region').textContent = `У кошику товарів: ${totalItems}`;
+        }
+
+        document.querySelectorAll('.add-to-cart-btn').forEach(addToCartBtn => {
+            const card = addToCartBtn.closest('li');
+            const quantityControl = card.querySelector('.quantity-control');
+            const decreaseBtn = card.querySelector('.decrease-btn');
+            const increaseBtn = card.querySelector('.increase-btn');
+            const itemCountSpan = card.querySelector('.item-count');
+
+            if (!quantityControl || !decreaseBtn || !increaseBtn || !itemCountSpan) {
+                return;
+            }
+
+            addToCartBtn.addEventListener('click', () => {
+                addToCartBtn.classList.add('hidden');
+                quantityControl.classList.remove('hidden');
+                quantityControl.classList.add('flex');
+                itemCountSpan.textContent = '1';
+                updateOverallCart();
+                decreaseBtn.focus();
+            });
+
+            increaseBtn.addEventListener('click', () => {
+                const current = parseInt(itemCountSpan.textContent, 10) || 1;
+                itemCountSpan.textContent = current + 1;
+                updateOverallCart();
+            });
+
+            decreaseBtn.addEventListener('click', () => {
+                const current = parseInt(itemCountSpan.textContent, 10) || 1;
+                if (current > 1) {
+                    itemCountSpan.textContent = current - 1;
+                } else {
+                    quantityControl.classList.add('hidden');
+                    quantityControl.classList.remove('flex');
+                    addToCartBtn.classList.remove('hidden');
+                    itemCountSpan.textContent = '1';
+                    addToCartBtn.focus();
+                }
+                updateOverallCart();
+            });
+        });
+
+        // Інтерактивні сердечка (В обране)
+        document.querySelectorAll('.like-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const icon = btn.querySelector('i');
+                const isSelected = btn.getAttribute('aria-pressed') === 'true';
+                btn.setAttribute('aria-pressed', String(!isSelected));
+                btn.setAttribute('aria-label', isSelected ? 'Додати в обране' : 'Видалити з обраного');
+                icon.classList.toggle('far', isSelected);
+                icon.classList.toggle('fas', !isSelected);
+            });
+        });
+
+        // Модальне вікно підбору розміру
+        const sizeModal = document.getElementById('size-modal');
+        const openModalBtns = document.querySelectorAll('.open-size-modal');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const modalBackground = document.querySelectorAll('body > .skip-link, body > header, body > main, body > footer');
+        let modalOpener = null;
+
+        function setSizeModalOpen(isOpen) {
+            sizeModal.classList.toggle('hidden', !isOpen);
+            modalBackground.forEach(element => {
+                element.inert = isOpen;
+            });
+            if (!isOpen && modalOpener) {
+                modalOpener.focus();
+            }
+        }
+
+        openModalBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                modalOpener = btn;
+                setSizeModalOpen(true);
+                closeModalBtn.focus();
+            });
+        });
+
+        closeModalBtn.addEventListener('click', () => setSizeModalOpen(false));
+
+        sizeModal.addEventListener('click', (e) => {
+            if (e.target === sizeModal) {
+                setSizeModalOpen(false);
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!sizeModal.classList.contains('hidden')) {
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    setSizeModalOpen(false);
+                    return;
+                }
+
+                if (e.key === 'Tab') {
+                    const focusableElements = [...sizeModal.querySelectorAll(
+                        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+                    )].filter(element => element.getClientRects().length > 0);
+                    const firstElement = focusableElements[0];
+                    const lastElement = focusableElements[focusableElements.length - 1];
+
+                    if (e.shiftKey && document.activeElement === firstElement) {
+                        e.preventDefault();
+                        lastElement.focus();
+                    } else if (!e.shiftKey && document.activeElement === lastElement) {
+                        e.preventDefault();
+                        firstElement.focus();
+                    }
+                }
+                return;
+            }
+
+            if (e.key === 'Escape') {
+                if (searchBtn.getAttribute('aria-expanded') === 'true') {
+                    setSearchOpen(false);
+                    searchBtn.focus();
+                }
+                if (menuBtn.getAttribute('aria-expanded') === 'true') {
+                    setMobileMenuOpen(false);
+                    menuBtn.focus();
+                }
+            }
+        });
+
+        // Toggle "Детальніше..." у модальному вікні
+        const detailsToggle = document.getElementById('details-toggle');
+        const detailsContent = document.getElementById('details-content');
+
+        if (detailsToggle && detailsContent) {
+            detailsToggle.addEventListener('click', () => {
+                const isOpen = detailsContent.classList.toggle('hidden') === false;
+                detailsToggle.setAttribute('aria-expanded', String(isOpen));
+                const plusSign = detailsToggle.querySelector('span:last-child');
+                plusSign.textContent = isOpen ? '−' : '+';
+            });
+        }
+    </script>
+</body>
+</html>
