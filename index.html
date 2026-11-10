@@ -40,9 +40,11 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="relative">
+    <body data-page="home"></body>
     <a href="#main-content" class="skip-link">Перейти до основного вмісту</a>
 
-    <!-- Шапка сайту (Header) -->
+    <div id="site-header"></div>
+    <!-- Шапка сайту (Header) 
     <header class="bg-white border-b border-gray-200 sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
             <a href="index.html" class="flex items-center" aria-label="БрендUa — головна сторінка">
@@ -56,14 +58,14 @@
             </nav>
 
             <div class="hidden sm:flex items-center space-x-4 sm:space-x-6">
-                <!-- Адаптивний блок пошуку -->
+                <!-- Адаптивний блок пошуку --
                 <div class="relative flex items-center">
                     <button id="search-btn" type="button" aria-label="Пошук по сайту" aria-expanded="false" aria-controls="search-field" class="bg-transparent !text-gray-600 hover:!text-blue-600 flex items-center justify-center gap-2 p-0 border-none shadow-none transition focus:outline-none cursor-pointer">
                         <i class="fas fa-search text-gray-600"></i> 
                         <span class="hidden xl:inline text-sm text-gray-600">Пошук</span>
                     </button>
 
-                    <!-- Випадаюче поле пошуку -->
+                    <!-- Випадаюче поле пошуку --
                     <div id="search-field" class="hidden absolute right-0 top-full mt-3 w-72 bg-white p-2.5 rounded-xl shadow-xl border border-gray-200 z-50">
                         <form action="catalog.html" method="GET" class="flex items-center gap-2">
                             <label for="desktop-search" class="sr-only">Пошук товарів</label>
@@ -80,7 +82,7 @@
                     <span class="hidden xl:inline text-sm">Особистий кабінет</span>
                 </a>
 
-                <!-- Динамічна іконка кошика -->
+                <!-- Динамічна іконка кошика --
                 <a href="cart.html" aria-label="Кошик покупок" class="text-gray-600 hover:text-blue-600 flex items-center gap-2 relative transition">
                     <div class="relative">
                         <i class="fas fa-shopping-bag text-lg"></i>
@@ -104,7 +106,7 @@
             </button>
         </div>
 
-        <!-- Випадаюче мобільне меню -->
+        <!-- Випадаюче мобільне меню --
         <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-200 px-4 pt-3 pb-6 space-y-4">
             <form action="catalog.html" method="GET" class="flex items-center gap-2 pt-1">
                 <label for="mobile-search" class="sr-only">Пошук товарів</label>
@@ -140,7 +142,7 @@
                 </button>
             </div>
         </div>
-    </header>
+    </header> -->
 
     <p id="cart-live-region" class="sr-only" aria-live="polite" aria-atomic="true"></p>
 
@@ -315,8 +317,8 @@
 
     </main>
 
-
-    <!-- Багатоколонковий футер -->
+ <!--
+   Багатоколонковий футер 
     <footer class="bg-gray-900 text-gray-300 pt-12 pb-8 border-t border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
@@ -361,7 +363,8 @@
                 </div>
             </div>
         </div>
-    </footer>
+    </footer> -->
+    <div id="site-footer"></div>
 
     <!-- МОДАЛЬНЕ ВІКНО «ПІДБІР РОЗМІРУ» -->
     <div id="size-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="size-modal-title" tabindex="-1">

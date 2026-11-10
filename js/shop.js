@@ -162,14 +162,14 @@
     if (head) {
       head.innerHTML = '<header class="bg-white border-b border-gray-200 sticky top-0 z-40"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">' +
         '<a href="index.html" class="flex items-center" aria-label="БрендUa — головна сторінка"><img src="assets/images/logo.svg" alt="Логотип БрендUa"></a>' +
-        '<nav class="hidden md:flex items-center space-x-8" aria-label="Головна навігація">' + nav('index.html', 'Головна', 'home') + nav('catalog.html', 'Каталог', 'catalog') + nav('about.html', 'Про нас', 'about') + '</nav>' +
+        '<nav class="hidden md:flex items-center space-x-8" aria-label="Головна навігація">' + nav('index.html', 'Головна', 'home') + nav('catalog.html', 'Каталог', 'catalog') + nav('about.html', 'Про нас', 'about') + nav('contacts.html', 'Контакти', 'contacts') + '</nav>' +
         '<div class="flex items-center gap-5"><div class="relative hidden sm:block"><button id="search-btn" type="button" aria-label="Пошук по сайту" aria-expanded="false" aria-controls="search-field" class="bg-transparent !text-gray-600 hover:!text-blue-600 border-none shadow-none cursor-pointer"><i class="fas fa-search"></i></button>' +
         '<div id="search-field" class="hidden absolute right-0 top-full mt-3 w-72 bg-white p-2.5 rounded-xl shadow-xl border border-gray-200 z-50">' + search('header-search') + '</div></div>' +
         '<a href="profile.html" aria-label="Особистий кабінет" class="hidden sm:block text-gray-600 hover:text-blue-600 transition"><i class="fas fa-user"></i></a>' +
         '<a href="cart.html" aria-label="Кошик покупок" class="text-gray-600 hover:text-blue-600 transition relative"><i class="fas fa-shopping-bag text-lg"></i>' + badge + '</a>' +
         '<button id="menu-btn" type="button" class="md:hidden bg-transparent !text-gray-700 hover:!text-blue-600 p-2 rounded-lg border-none" aria-label="Відкрити або закрити меню" aria-expanded="false" aria-controls="mobile-menu"><i class="fas fa-bars text-2xl"></i></button></div></div>' +
         '<div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 px-4 pt-3 pb-6 space-y-3">' + search('mobile-search') +
-        '<nav class="flex flex-col gap-2" aria-label="Мобільне меню">' + nav('index.html', 'Головна', 'home', 'py-1') + nav('catalog.html', 'Каталог', 'catalog', 'py-1') + nav('about.html', 'Про нас', 'about', 'py-1') + nav('profile.html', 'Особистий кабінет', 'profile', 'py-1') + '</nav></div></header>' +
+        '<nav class="flex flex-col gap-2" aria-label="Мобільне меню">' + nav('index.html', 'Головна', 'home', 'py-1') + nav('catalog.html', 'Каталог', 'catalog', 'py-1') + nav('about.html', 'Про нас', 'about', 'py-1') + nav('contacts.html', 'Контакти', 'contacts', 'py-1') + nav('profile.html', 'Особистий кабінет', 'profile', 'py-1') + '</nav></div></header>' +
         '<p id="cart-live-region" class="sr-only" aria-live="polite" aria-atomic="true"></p>';
       const mBtn = document.getElementById('menu-btn'), mMenu = document.getElementById('mobile-menu');
       const sBtn = document.getElementById('search-btn'), sBox = document.getElementById('search-field');
@@ -187,7 +187,7 @@
       foot.innerHTML = '<footer class="bg-gray-900 text-gray-300 pt-12 pb-8 border-t border-gray-800"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">' +
         '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8"><div class="space-y-3"><a href="index.html" aria-label="Головна сторінка"><img src="assets/images/logo.svg" alt="Логотип БрендUa" loading="lazy" class="h-12 w-auto brightness-0 invert"></a><p class="text-sm text-gray-400 leading-relaxed">Український одяг на щодень.<br>Створено для твого комфорту.</p></div>' +
         '<div><h2 class="text-white font-semibold text-base mb-3">Каталог</h2><ul class="space-y-2 text-sm">' + Object.keys(CATEGORIES).map((k) => l('catalog.html?cat=' + k, CATEGORIES[k])).join('') + '</ul></div>' +
-        '<div><h2 class="text-white font-semibold text-base mb-3">Допомога покупцю</h2><ul class="space-y-2 text-sm">' + l('delivery.html', 'Доставка й оплата') + '</ul></div>' +
+        '<div><h2 class="text-white font-semibold text-base mb-3">Допомога покупцю</h2><ul class="space-y-2 text-sm">' + l('delivery.html', 'Доставка й оплата') + l('contacts.html', 'Контакти') + '</ul></div>' +
         '<div><h2 class="text-white font-semibold text-base mb-3">Зв\'язок із нами</h2><ul class="space-y-2 text-sm text-gray-400"><li>Пн–Пт: 09:00–18:00</li></ul></div></div>' +
         '<div class="border-t border-gray-800 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 gap-4"><p>&copy; 2026 БрендUa. Всі права захищені.</p><div class="flex gap-x-6"><a href="about.html" class="hover:text-white transition">Політика конфіденційності</a><a href="about.html" class="hover:text-white transition">Публічна оферта</a></div></div></div></footer>';
     }
