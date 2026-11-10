@@ -4,27 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Доставка й оплата — БрендUa</title>
+    <meta name="description" content="Доставка Новою Поштою по Україні за 1–3 дні, обмін і повернення протягом 14 днів.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { brand: {
+            primary: '#1a2b4c', deep: '#1e2b48', 'deep-hover': '#111827', ink: '#1b2a47',
+            'ink-hover': '#22385f', accent: '#A64B35', beige: '#f4efea', 'beige-hover': '#e8dfd5', input: '#dedede'
+        } } } } };
+    </script>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/shop.js"></script>
 </head>
-<body class="bg-gray-50 flex flex-col min-h-screen">
-    <header class="bg-white border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
-            <a href="index.html" class="flex items-center">
-    <img src="assets/images/logo.svg" alt="Логотип БрендUa">
-</a>
-            <a href="index.html" class="text-blue-600 font-medium hover:underline">&larr; На головну</a>
-        </div>
-    </header>
+<body class="bg-gray-50 text-brand-ink flex flex-col min-h-screen" data-page="delivery">
+    <div id="site-header"></div>
 
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-        <h1 class="text-3xl font-bold text-gray-900 mb-4">Доставка й оплата</h1>
-        <p class="text-gray-600 mb-8">Доставка здійснюється Новою Поштою по всій Україні протягом 1-3 днів.</p>
-        <a href="index.html" class="inline-block bg-[#1b2a47] text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition">Повернутися на головну</a>
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-20">
+        <nav aria-label="Хлібні крихти" class="text-xs text-slate-500 mb-10"><a href="index.html" class="hover:text-brand-ink">Головна</a> / <span>Доставка й оплата</span></nav>
+        <h1 class="text-4xl sm:text-5xl font-bold mb-4">Доставка й оплата</h1>
+        <p class="text-slate-600 max-w-2xl mb-12">Доставка здійснюється Новою Поштою по всій Україні протягом 1–3 днів.</p>
+
+        <ul class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            <li class="bg-white rounded-2xl border border-gray-200 p-6"><i class="fas fa-truck-fast text-xl text-brand-ink" aria-hidden="true"></i><h3 class="text-lg font-bold mt-4 mb-2">Нова Пошта по Україні</h3><p class="text-sm text-slate-600 leading-relaxed">Відправляємо по всій Україні. Термін доставки — 1–3 дні. Вартість: [уточнюється].</p></li>
+            <li class="bg-white rounded-2xl border border-gray-200 p-6"><i class="fas fa-earth-europe text-xl text-brand-ink" aria-hidden="true"></i><h3 class="text-lg font-bold mt-4 mb-2">Доставка за кордон</h3><p class="text-sm text-slate-600 leading-relaxed">Відправляємо й за межі України. Терміни та вартість: [уточнюються].</p></li>
+            <li class="bg-white rounded-2xl border border-gray-200 p-6"><i class="fas fa-rotate-left text-xl text-brand-ink" aria-hidden="true"></i><h3 class="text-lg font-bold mt-4 mb-2">Обмін і повернення</h3><p class="text-sm text-slate-600 leading-relaxed">Зручний обмін протягом 14 днів. Допоможемо підібрати інший розмір.</p></li>
+        </ul>
+
+        <section class="mb-16" aria-labelledby="pay-title">
+            <h2 id="pay-title" class="text-2xl sm:text-3xl font-bold mb-4">Оплата</h2>
+            <p class="text-slate-600 max-w-2xl">Способи оплати: <strong>[уточнюються]</strong>. Обрати зручний можна буде під час оформлення замовлення.</p>
+        </section>
+
+        <section aria-labelledby="faq-title">
+            <h2 id="faq-title" class="text-2xl sm:text-3xl font-bold mb-6">Часті запитання</h2>
+            <div class="space-y-3 max-w-3xl">
+                <details class="group bg-white rounded-2xl border border-gray-200 px-6 py-4"><summary class="cursor-pointer font-semibold flex items-center justify-between gap-4">Скільки йде доставка по Україні?<i class="fas fa-plus text-xs text-slate-400 group-open:rotate-45 transition" aria-hidden="true"></i></summary><p class="text-sm text-slate-600 leading-relaxed mt-3">Новою Поштою — від 1 до 3 днів.</p></details>
+                <details class="group bg-white rounded-2xl border border-gray-200 px-6 py-4"><summary class="cursor-pointer font-semibold flex items-center justify-between gap-4">Скільки днів є на обмін?<i class="fas fa-plus text-xs text-slate-400 group-open:rotate-45 transition" aria-hidden="true"></i></summary><p class="text-sm text-slate-600 leading-relaxed mt-3">Обмін можливий протягом 14 днів.</p></details>
+                <details class="group bg-white rounded-2xl border border-gray-200 px-6 py-4"><summary class="cursor-pointer font-semibold flex items-center justify-between gap-4">Як дізнатися свій розмір?<i class="fas fa-plus text-xs text-slate-400 group-open:rotate-45 transition" aria-hidden="true"></i></summary><p class="text-sm text-slate-600 leading-relaxed mt-3">Скористайтеся підбором розміру: вкажіть зріст і вагу, і ми запропонуємо розмір. Він доступний <a href="index.html#size-advisor" class="text-blue-600 hover:underline">на головній сторінці</a> і на сторінці кожного товару.</p></details>
+            </div>
+        </section>
     </main>
 
-    <footer class="bg-gray-900 text-gray-400 py-6 text-center text-xs">
-        &copy; 2026 БрендUa. Всі права захищені.
-    </footer>
+    <div id="site-footer"></div>
 </body>
 </html>

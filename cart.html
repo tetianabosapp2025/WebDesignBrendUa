@@ -4,27 +4,130 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Кошик — БрендUa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { brand: {
+            primary: '#1a2b4c', deep: '#1e2b48', 'deep-hover': '#111827', ink: '#1b2a47',
+            'ink-hover': '#22385f', accent: '#A64B35', beige: '#f4efea', 'beige-hover': '#e8dfd5', input: '#dedede'
+        } } } } };
+    </script>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/shop.js"></script>
 </head>
-<body class="bg-gray-50 flex flex-col min-h-screen">
-    <header class="bg-white border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
-            <a href="index.html" class="flex items-center">
-    <img src="assets/images/logo.svg" alt="Логотип БрендUa">
-</a>
-            <a href="index.html" class="text-blue-600 font-medium hover:underline">&larr; На головну</a>
-        </div>
-    </header>
+<body class="bg-gray-50 flex flex-col min-h-screen" data-page="cart">
+    <div id="site-header"></div>
 
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-        <h1 class="text-3xl font-bold text-gray-900 mb-4">Ваш кошик</h1>
-        <p class="text-gray-600 mb-8">У вашому кошику є обрані товари. Оформлення замовлення буде доступно незабаром.</p>
-        <a href="index.html" class="inline-block bg-[#1b2a47] text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition">Повернутися до покупок</a>
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <nav aria-label="Хлібні крихти" class="text-sm text-gray-500 mb-4">
+            <a href="index.html" class="hover:text-blue-600">Головна</a> <span aria-hidden="true">/</span> <span class="text-gray-900">Кошик</span>
+        </nav>
+        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-8">Кошик</h1>
+        <div id="cart-root"></div>
     </main>
 
-    <footer class="bg-gray-900 text-gray-400 py-6 text-center text-xs">
-        &copy; 2026 БрендUa. Всі права захищені.
-    </footer>
+    <div id="site-footer"></div>
+
+    <script>
+        const root = document.getElementById('cart-root');
+        const btnPrimary = '!bg-brand-ink hover:!bg-brand-ink-hover !text-white font-medium rounded-full border-none cursor-pointer hover:!transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2';
+        const stepBtn = 'w-8 h-8 rounded-full bg-white text-gray-800 font-bold shadow-sm hover:bg-gray-200 transition flex items-center justify-center border-none cursor-pointer';
+        let showErrors = false, message = '', focusSel = null;
+
+        function render() {
+            const items = Shop.cart();
+            if (!items.length) {
+                root.innerHTML = `<div class="bg-white rounded-3xl border border-gray-200 text-center px-6 py-16">
+                    <i class="fas fa-shopping-bag text-4xl text-gray-300" aria-hidden="true"></i>
+                    <h2 class="text-xl font-bold text-gray-900 mt-4">У кошику поки порожньо</h2>
+                    <p class="text-gray-600 mt-2">Додайте речі з каталогу — вони з'являться тут.</p>
+                    <a href="catalog.html" class="inline-block mt-6 px-6 py-3 text-sm no-underline ${btnPrimary}">Перейти до каталогу</a></div>`;
+                return;
+            }
+            const rows = items.map(i => {
+                const p = Shop.product(i.id), key = i.id + '|' + i.size;
+                const bad = showErrors && !i.size;
+                const opts = '<option value="">Оберіть розмір</option>' + Shop.SIZES.map(s => `<option value="${s}" ${s === i.size ? 'selected' : ''}>${s}</option>`).join('');
+                return `<li class="bg-white rounded-2xl border border-gray-200 p-4 flex gap-4" data-key="${key}" data-id="${i.id}" data-size="${i.size}">
+                    <a href="product.html?id=${p.id}" class="shrink-0"><img src="${p.image}" alt="${p.name}" class="w-24 h-28 sm:w-28 sm:h-32 object-cover rounded-xl bg-brand-beige"></a>
+                    <div class="flex-1 min-w-0 flex flex-col justify-between gap-3">
+                        <div class="flex justify-between gap-3">
+                            <div>
+                                <h2 class="font-bold text-gray-900"><a href="product.html?id=${p.id}" class="no-underline text-inherit hover:text-blue-950">${p.name}</a></h2>
+                                <p class="text-sm text-gray-500 mt-0.5">${Shop.meta(p)}</p>
+                            </div>
+                            <button type="button" data-act="remove" aria-label="Видалити з кошика: ${p.name}" class="self-start p-2 bg-transparent text-gray-400 hover:text-red-500 border-none cursor-pointer"><i class="fas fa-trash-can" aria-hidden="true"></i></button>
+                        </div>
+                        <div class="flex flex-wrap items-center justify-between gap-3">
+                            <div class="flex flex-wrap items-center gap-3">
+                                <label class="sr-only" for="size-${key}">Розмір: ${p.name}</label>
+                                <select id="size-${key}" data-act="size" class="px-3 py-1.5 text-sm bg-white border rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand-ink ${bad ? 'border-red-500 ring-2 ring-red-300' : 'border-gray-300'}">${opts}</select>
+                                <div class="flex items-center gap-2 bg-gray-100 rounded-full p-1 border border-gray-200">
+                                    <button type="button" data-act="dec" class="${stepBtn}" aria-label="Зменшити кількість: ${p.name}">−</button>
+                                    <span class="w-6 text-center text-sm font-semibold text-gray-900" aria-live="polite">${i.qty}</span>
+                                    <button type="button" data-act="inc" class="${stepBtn}" aria-label="Збільшити кількість: ${p.name}">+</button>
+                                </div>
+                            </div>
+                            <p class="font-bold text-gray-900">${Shop.price(i.qty * p.price)}</p>
+                        </div>
+                    </div></li>`;
+            }).join('');
+
+            root.innerHTML = `<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                <div class="lg:col-span-2">
+                    <ul class="space-y-4">${rows}</ul>
+                    <button type="button" data-act="clear" class="mt-4 text-sm text-gray-500 hover:text-red-500 underline bg-transparent border-none cursor-pointer p-0">Очистити кошик</button>
+                </div>
+                <aside class="bg-white rounded-2xl border border-gray-200 p-6 lg:sticky lg:top-28" aria-labelledby="sum-title">
+                    <h2 id="sum-title" class="text-lg font-bold text-gray-900">Разом</h2>
+                    <dl class="mt-4 space-y-2 text-sm text-gray-600">
+                        <div class="flex justify-between"><dt>Товарів</dt><dd>${Shop.count()}</dd></div>
+                        <div class="flex justify-between"><dt>Доставка</dt><dd>розраховується при оформленні</dd></div>
+                    </dl>
+                    <div class="flex justify-between items-baseline border-t border-gray-200 mt-4 pt-4">
+                        <span class="font-semibold text-gray-900">До сплати</span><span class="text-2xl font-bold text-gray-900">${Shop.price(Shop.total())}</span>
+                    </div>
+                    <button type="button" data-act="checkout" class="w-full mt-6 py-3 text-sm ${btnPrimary}">Оформити замовлення</button>
+                    <p id="cart-msg" role="alert" class="text-sm mt-3 ${message.startsWith('Оберіть') ? 'text-red-600' : 'text-gray-600'}">${message}</p>
+                    <a href="catalog.html" class="block text-center text-sm text-blue-600 hover:underline mt-4">Продовжити покупки</a>
+                </aside>
+            </div>`;
+            if (focusSel) { const el = root.querySelector(focusSel); if (el) el.focus(); focusSel = null; }
+        }
+
+        root.addEventListener('click', e => {
+            const b = e.target.closest('[data-act]');
+            if (!b) return;
+            const li = b.closest('li'), act = b.dataset.act;
+            if (li) {
+                const { id, size, key } = { id: li.dataset.id, size: li.dataset.size, key: li.dataset.key };
+                const line = Shop.cart().find(i => i.id === id && i.size === size);
+                if (act === 'inc') { focusSel = `[data-key="${key}"] [data-act="inc"]`; Shop.setQty(id, size, line.qty + 1); }
+                if (act === 'dec') { focusSel = line.qty > 1 ? `[data-key="${key}"] [data-act="dec"]` : null; Shop.setQty(id, size, line.qty - 1); }
+                if (act === 'remove') Shop.setQty(id, size, 0);
+            }
+            if (act === 'clear') { message = ''; Shop.clear(); }
+            if (act === 'checkout') {
+                const missing = Shop.cart().filter(i => !i.size);
+                showErrors = missing.length > 0;
+                message = missing.length
+                    ? 'Оберіть розмір для: ' + [...new Set(missing.map(i => Shop.product(i.id).name))].join(', ') + '.'
+                    : 'Оформлення замовлення стане доступним найближчим часом.';
+                render();
+            }
+        });
+        root.addEventListener('change', e => {
+            const s = e.target.closest('[data-act="size"]');
+            if (!s) return;
+            const li = s.closest('li');
+            focusSel = `[data-id="${li.dataset.id}"][data-size="${s.value}"] [data-act="size"]`;
+            Shop.setSize(li.dataset.id, li.dataset.size, s.value);
+        });
+        window.addEventListener('cart:change', () => { if (!Shop.cart().some(i => !i.size)) { showErrors = false; if (message.startsWith('Оберіть')) message = ''; } render(); });
+        render();
+    </script>
 </body>
 </html>

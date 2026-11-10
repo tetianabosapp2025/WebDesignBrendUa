@@ -4,27 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Особистий кабінет — БрендUa</title>
+    <meta name="description" content="Особистий кабінет БрендUa: обране, замовлення та ваші дані.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { brand: {
+            primary: '#1a2b4c', deep: '#1e2b48', 'deep-hover': '#111827', ink: '#1b2a47',
+            'ink-hover': '#22385f', accent: '#A64B35', beige: '#f4efea', 'beige-hover': '#e8dfd5', input: '#dedede'
+        } } } } };
+    </script>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/shop.js"></script>
 </head>
-<body class="bg-gray-50 flex flex-col min-h-screen">
-    <header class="bg-white border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
-            <a href="index.html" class="flex items-center">
-    <img src="assets/images/logo.svg" alt="Логотип БрендUa">
-</a>
-            <a href="index.html" class="text-blue-600 font-medium hover:underline">&larr; На головну</a>
-        </div>
-    </header>
+<body class="bg-gray-50 text-brand-ink flex flex-col min-h-screen" data-page="profile">
+    <div id="site-header"></div>
 
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-        <h1 class="text-3xl font-bold text-gray-900 mb-4">Особистий кабінет</h1>
-        <p class="text-gray-600 mb-8">Авторизація та історія замовлень перебувають у стані розробки.</p>
-        <a href="index.html" class="inline-block bg-[#1b2a47] text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition">На головну</a>
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-20">
+        <nav aria-label="Хлібні крихти" class="text-xs text-slate-500 mb-10"><a href="index.html" class="hover:text-brand-ink">Головна</a> / <span>Особистий кабінет</span></nav>
+        <div id="profile-root"></div>
     </main>
 
-    <footer class="bg-gray-900 text-gray-400 py-6 text-center text-xs">
-        &copy; 2026 БрендUa. Всі права захищені.
-    </footer>
+    <div id="site-footer"></div>
+
+    <script>
+        const KEY = 'brendua_user_v1', root = document.getElementById('profile-root');
+        const btn = '!bg-brand-ink hover:!bg-brand-ink-hover !text-white font-medium rounded-full border-none cursor-pointer no-underline hover:!transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2';
+        const getUser = () => { try { return JSON.parse(localStorage.getItem(KEY)); } catch (e) { return null; } };
+        const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        let editing = false;
+
+        function formView(u) {
+            return `<div class="max-w-md mx-auto bg-white rounded-3xl border border-gray-200 p-8">
+                <h1 class="text-3xl font-bold mb-2">${u ? 'Ваші дані' : 'Особистий кабінет'}</h1>
+                <p class="text-sm text-slate-500 mb-6">${u ? 'Змініть ім\'я або пошту.' : 'Створіть профіль, щоб бачити обране й замовлення в одному місці.'}</p>
+                <form id="user-form" class="space-y-4" novalidate>
+                    <div><label for="u-name" class="block text-sm font-semibold mb-1">Ім'я</label><input id="u-name" type="text" autocomplete="name" value="${u ? esc(u.name) : ''}" class="w-full px-4 py-3 text-gray-900 bg-white border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-ink"></div>
+                    <div><label for="u-email" class="block text-sm font-semibold mb-1">Електронна пошта</label><input id="u-email" type="email" autocomplete="email" value="${u ? esc(u.email) : ''}" class="w-full px-4 py-3 text-gray-900 bg-white border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-ink"></div>
+                    <p id="u-error" role="alert" class="text-sm text-red-600"></p>
+                    <button type="submit" class="w-full py-3 text-sm ${btn}">${u ? 'Зберегти' : 'Створити профіль'}</button>
+                </form>
+                <p class="text-xs text-slate-500 mt-4">Демо-режим: дані зберігаються лише у вашому браузері. Вхід із паролем з'явиться разом із сервером.</p>
+            </div>`;
+        }
+
+        function accountView(u) {
+            const favs = Shop.PRODUCTS.filter(p => Shop.isFav(p.id));
+            return `<div class="flex flex-wrap items-end justify-between gap-4 mb-10">
+                    <div><h1 class="text-4xl font-bold">Вітаємо, ${esc(u.name)}</h1><p class="text-slate-500 mt-1">${esc(u.email)}</p></div>
+                    <div class="flex gap-3"><button type="button" data-act="edit" class="px-5 py-2.5 text-sm font-medium rounded-full border border-gray-300 !bg-white !text-brand-ink cursor-pointer hover:!bg-gray-100">Змінити дані</button>
+                    <button type="button" data-act="logout" class="px-5 py-2.5 text-sm ${btn}">Вийти</button></div>
+                </div>
+                <section class="mb-12" aria-labelledby="fav-title"><h2 id="fav-title" class="text-2xl font-bold mb-6">Обране</h2>
+                    ${favs.length ? `<ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">${favs.map(Shop.cardHTML).join('')}</ul>`
+                    : `<div class="bg-white rounded-2xl border border-gray-200 p-8 text-center"><p class="text-slate-600">Тут з'являться речі, які ви позначите сердечком.</p><a href="catalog.html" class="inline-block mt-4 px-6 py-2.5 text-sm ${btn}">Перейти до каталогу</a></div>`}</section>
+                <section aria-labelledby="orders-title"><h2 id="orders-title" class="text-2xl font-bold mb-6">Історія замовлень</h2>
+                    <div class="bg-white rounded-2xl border border-gray-200 p-8 text-center"><p class="text-slate-600">Замовлень поки немає.</p>
+                    ${Shop.count() ? `<a href="cart.html" class="inline-block mt-4 text-blue-600 hover:underline text-sm">У кошику товарів: ${Shop.count()} — перейти до кошика</a>` : ''}</div></section>`;
+        }
+
+        function render() {
+            const u = getUser();
+            root.innerHTML = !u || editing ? formView(u) : accountView(u);
+            if (u && !editing) Shop.bindCards(root);
+        }
+
+        root.addEventListener('submit', e => {
+            e.preventDefault();
+            const name = document.getElementById('u-name').value.trim(), email = document.getElementById('u-email').value.trim();
+            const err = document.getElementById('u-error');
+            if (!name) { err.textContent = 'Вкажіть ім\'я.'; return; }
+            if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { err.textContent = 'Вкажіть коректну електронну пошту.'; return; }
+            try { localStorage.setItem(KEY, JSON.stringify({ name, email })); } catch (x) {}
+            editing = false; render();
+        });
+        root.addEventListener('click', e => {
+            const b = e.target.closest('[data-act]');
+            if (!b) return;
+            if (b.dataset.act === 'edit') { editing = true; render(); }
+            if (b.dataset.act === 'logout') { try { localStorage.removeItem(KEY); } catch (x) {} render(); }
+        });
+        render();
+    </script>
 </body>
 </html>

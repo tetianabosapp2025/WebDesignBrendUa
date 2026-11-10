@@ -4,27 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Каталог — БрендUa</title>
+    <meta name="description" content="Каталог українського одягу БрендUa: футболки, світшоти, худі та штани.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { brand: {
+            primary: '#1a2b4c', deep: '#1e2b48', 'deep-hover': '#111827', ink: '#1b2a47',
+            'ink-hover': '#22385f', accent: '#A64B35', beige: '#f4efea', 'beige-hover': '#e8dfd5', input: '#dedede'
+        } } } } };
+    </script>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/shop.js"></script>
 </head>
-<body class="bg-gray-50 flex flex-col min-h-screen">
-    <header class="bg-white border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
-            <a href="index.html" class="flex items-center">
-    <img src="assets/images/logo.svg" alt="Логотип БрендUa">
-</a>
-            <a href="index.html" class="text-blue-600 font-medium hover:underline">&larr; На головну</a>
-        </div>
-    </header>
+<body class="bg-gray-50 flex flex-col min-h-screen" data-page="catalog">
+    <div id="site-header"></div>
 
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-        <h1 class="text-3xl font-bold text-gray-900 mb-4">Каталог товарів</h1>
-        <p class="text-gray-600 mb-8">Розділ знаходиться в розробці. Тут буде повний асортимент одягу БрендUa.</p>
-        <a href="index.html" class="inline-block bg-[#1b2a47] text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition">Повернутися на головну</a>
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <nav aria-label="Хлібні крихти" class="text-sm text-gray-500 mb-4">
+            <a href="index.html" class="hover:text-blue-600">Головна</a> <span aria-hidden="true">/</span> <span class="text-gray-900">Каталог</span>
+        </nav>
+        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">Каталог</h1>
+        <p id="result-count" class="text-gray-600 mt-2" aria-live="polite"></p>
+
+        <div class="mt-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            <div id="chips" class="flex flex-wrap gap-2" role="group" aria-label="Категорії"></div>
+            <div class="flex flex-col sm:flex-row gap-3">
+                <div>
+                    <label for="q" class="sr-only">Пошук у каталозі</label>
+                    <input id="q" type="search" placeholder="Пошук у каталозі" class="w-full sm:w-64 px-4 py-2 text-sm bg-white border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-brand-ink text-gray-900">
+                </div>
+                <div>
+                    <label for="sort" class="sr-only">Сортування</label>
+                    <select id="sort" class="w-full px-4 py-2 text-sm bg-white border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-brand-ink text-gray-900">
+                        <option value="default">За замовчуванням</option>
+                        <option value="asc">Спочатку дешевші</option>
+                        <option value="desc">Спочатку дорожчі</option>
+                        <option value="name">За назвою</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <ul id="grid" class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></ul>
+
+        <div id="empty" class="hidden text-center py-16">
+            <h2 class="text-xl font-bold text-gray-900">Нічого не знайдено</h2>
+            <p class="text-gray-600 mt-2">Спробуйте змінити запит або обрати іншу категорію.</p>
+            <button id="reset" type="button" class="mt-6 !bg-brand-ink hover:!bg-brand-ink-hover !text-white px-6 py-2.5 rounded-full font-medium text-sm border-none cursor-pointer hover:!transform-none">Скинути фільтри</button>
+        </div>
+        <noscript><p class="text-gray-600 mt-8">Щоб переглянути каталог, увімкніть JavaScript.</p></noscript>
     </main>
 
-    <footer class="bg-gray-900 text-gray-400 py-6 text-center text-xs">
-        &copy; 2026 БрендUa. Всі права захищені.
-    </footer>
+    <div id="site-footer"></div>
+
+    <script>
+        const params = new URLSearchParams(location.search);
+        const state = {
+            cat: Shop.CATEGORIES[params.get('cat')] ? params.get('cat') : 'all',
+            q: params.get('q') || '',
+            sort: ['asc', 'desc', 'name'].includes(params.get('sort')) ? params.get('sort') : 'default'
+        };
+        const grid = document.getElementById('grid'), chips = document.getElementById('chips');
+        const qInput = document.getElementById('q'), sortSel = document.getElementById('sort');
+        qInput.value = state.q; sortSel.value = state.sort;
+
+        function renderChips() {
+            const all = [['all', 'Усі']].concat(Object.entries(Shop.CATEGORIES));
+            chips.innerHTML = all.map(([key, label]) => {
+                const on = key === state.cat;
+                return `<button type="button" data-cat="${key}" aria-pressed="${on}" class="px-4 py-2 rounded-full text-sm font-medium border cursor-pointer transition hover:!transform-none ${on ? '!bg-brand-ink !text-white border-brand-ink' : '!bg-white !text-gray-700 border-gray-300 hover:!bg-gray-100'}">${label}</button>`;
+            }).join('');
+        }
+
+        function render() {
+            const q = state.q.trim().toLowerCase();
+            let list = Shop.PRODUCTS.filter(p =>
+                (state.cat === 'all' || p.category === state.cat) &&
+                (!q || [p.name, p.color, p.material].join(' ').toLowerCase().includes(q)));
+            if (state.sort === 'asc') list.sort((a, b) => a.price - b.price);
+            if (state.sort === 'desc') list.sort((a, b) => b.price - a.price);
+            if (state.sort === 'name') list.sort((a, b) => a.name.localeCompare(b.name, 'uk'));
+
+            grid.innerHTML = list.map(Shop.cardHTML).join('');
+            Shop.bindCards(grid);
+            document.getElementById('empty').classList.toggle('hidden', list.length > 0);
+            document.getElementById('result-count').textContent = list.length ? `Знайдено товарів: ${list.length}` : '';
+            renderChips();
+
+            const next = new URLSearchParams();
+            if (state.cat !== 'all') next.set('cat', state.cat);
+            if (state.q) next.set('q', state.q);
+            if (state.sort !== 'default') next.set('sort', state.sort);
+            try { history.replaceState(null, '', location.pathname + (next.toString() ? '?' + next : '')); } catch (e) {}
+        }
+
+        chips.addEventListener('click', e => {
+            const b = e.target.closest('[data-cat]');
+            if (b) { state.cat = b.dataset.cat; render(); chips.querySelector(`[data-cat="${state.cat}"]`).focus(); }
+        });
+        qInput.addEventListener('input', () => { state.q = qInput.value; render(); });
+        sortSel.addEventListener('change', () => { state.sort = sortSel.value; render(); });
+        document.getElementById('reset').addEventListener('click', () => {
+            Object.assign(state, { cat: 'all', q: '', sort: 'default' });
+            qInput.value = ''; sortSel.value = 'default'; render();
+        });
+        render();
+    </script>
 </body>
 </html>

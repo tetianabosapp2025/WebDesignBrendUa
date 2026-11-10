@@ -19,6 +19,7 @@
 
     <!-- Головний файл стилів -->
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/shop.js"></script>
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans">
 
@@ -54,7 +55,7 @@
             </div>
 
             <a href="profile.html" aria-label="Особистий кабінет" class="icon-link"><i class="fas fa-user"></i> <span class="action-text">Особистий кабінет</span></a>
-            <a href="cart.html" aria-label="Кошик" class="cart-link"><i class="fas fa-shopping-bag"></i> <span class="cart-badge">2</span> <span class="action-text">Кошик</span></a>
+            <a href="cart.html" aria-label="Кошик" class="cart-link"><i class="fas fa-shopping-bag"></i> <span class="cart-badge cart-count">0</span> <span class="action-text">Кошик</span></a>
         </div>
 
         <div class="header-cta">
@@ -62,126 +63,7 @@
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Навігаційні хлібні крихти (Breadcrumbs) -->
-        <nav class="text-sm text-gray-500 mb-6 flex items-center space-x-2" aria-label="Хлібні крихти">
-            <a href="index.html" class="hover:text-gray-900 transition">Головна</a>
-            <span>/</span>
-            <a href="catalog.html" class="hover:text-gray-900 transition">Каталог</a>
-            <span>/</span>
-            <a href="catalog.html" class="hover:text-gray-900 transition">Футболки</a>
-            <span>/</span>
-            <span class="text-gray-900 font-medium">Футболка базова</span>
-        </nav>
-
-        <!-- Основна секція товару -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 bg-white p-6 sm:p-10 rounded-3xl border border-gray-200 shadow-sm">
-            
-            <!-- Галерея зображень товару -->
-            <div class="space-y-4">
-                <div class="overflow-hidden rounded-2xl bg-[#f4efea] aspect-[3/4] border border-gray-100">
-                    <img id="main-product-img" src="assets/images/футболка-мол.png" alt="Футболка базова молочного кольору" class="w-full h-full object-cover object-center transition-all duration-300">
-                </div>
-                <!-- Мініатюри -->
-                <div class="grid grid-cols-4 gap-4">
-                    <button type="button" class="thumb-btn border-2 border-[#1b2a47] rounded-xl overflow-hidden aspect-square bg-[#f4efea] focus:outline-none" onclick="changeImage('assets/images/футболка-мол.png', this)">
-                        <img src="assets/images/футболка-мол.png" alt="Вигляд 1" class="w-full h-full object-cover">
-                    </button>
-                    <button type="button" class="thumb-btn border border-gray-200 hover:border-gray-400 rounded-xl overflow-hidden aspect-square bg-[#f4efea] focus:outline-none" onclick="changeImage('assets/images/відгук2.png', this)">
-                        <img src="assets/images/відгук2.png" alt="Вигляд 2" class="w-full h-full object-cover">
-                    </button>
-                </div>
-            </div>
-
-            <!-- Деталі товару та форма вибору -->
-            <div class="flex flex-col justify-between space-y-6">
-                <div>
-                    <span class="inline-block bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full font-semibold mb-3">Бестселер</span>
-                    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Футболка базова</h1>
-                    <p class="text-gray-500 text-sm mb-4">Артикул: UA-TS-2026-W</p>
-
-                    <div class="flex items-center space-x-4 mb-6">
-                        <span class="text-3xl font-bold text-gray-900">790 грн</span>
-                        <span class="text-sm text-green-600 bg-green-50 px-2.5 py-1 rounded-md font-medium"><i class="fas fa-check-circle mr-1"></i>В наявності</span>
-                    </div>
-
-                    <hr class="border-gray-100 my-6">
-
-                    <!-- Колір -->
-                    <div class="mb-6">
-                        <label class="block text-sm font-semibold text-gray-800 mb-2">Колір: <span id="color-label" class="font-normal text-gray-600">Молочний</span></label>
-                        <div class="flex space-x-3">
-                            <button type="button" aria-label="Молочний колір" class="w-8 h-8 rounded-full bg-[#f4efea] border-2 border-[#1b2a47] ring-2 ring-offset-2 ring-[#1b2a47] focus:outline-none"></button>
-                            <button type="button" aria-label="Чорний колір" class="w-8 h-8 rounded-full bg-black border border-gray-300 hover:scale-110 transition focus:outline-none"></button>
-                            <button type="button" aria-label="Бежевий колір" class="w-8 h-8 rounded-full bg-[#d6c5b3] border border-gray-300 hover:scale-110 transition focus:outline-none"></button>
-                        </div>
-                    </div>
-
-                    <!-- Вибір розміру -->
-                    <div class="mb-6">
-                        <div class="flex items-center justify-between mb-2">
-                            <label class="text-sm font-semibold text-gray-800">Розмір:</label>
-                            <button type="button" class="open-size-modal text-xs text-blue-600 hover:underline font-medium flex items-center gap-1 cursor-pointer">
-                                <i class="fas fa-ruler"></i> Розрахувати свій розмір
-                            </button>
-                        </div>
-                        <div class="grid grid-cols-4 sm:grid-cols-5 gap-2" id="size-selector">
-                            <button type="button" class="size-btn py-2.5 border border-gray-200 rounded-xl text-sm font-medium text-gray-800 hover:border-gray-900 transition">XS</button>
-                            <button type="button" class="size-btn py-2.5 border-2 border-[#1b2a47] bg-[#1b2a47] text-white rounded-xl text-sm font-medium transition">S</button>
-                            <button type="button" class="size-btn py-2.5 border border-gray-200 rounded-xl text-sm font-medium text-gray-800 hover:border-gray-900 transition">M</button>
-                            <button type="button" class="size-btn py-2.5 border border-gray-200 rounded-xl text-sm font-medium text-gray-800 hover:border-gray-900 transition">L</button>
-                            <button type="button" class="size-btn py-2.5 border border-gray-200 rounded-xl text-sm font-medium text-gray-800 hover:border-gray-900 transition">XL</button>
-                        </div>
-                    </div>
-
-                    <!-- Дії: Кількість та Кошик -->
-                    <div class="flex items-center space-x-4 mb-8">
-                        <div class="flex items-center border border-gray-300 rounded-full p-1 bg-gray-50">
-                            <button type="button" id="qty-minus" class="w-10 h-10 rounded-full bg-white text-gray-800 font-bold shadow-sm hover:bg-gray-100 transition flex items-center justify-center cursor-pointer">−</button>
-                            <span id="qty-value" class="px-4 font-semibold text-gray-900">1</span>
-                            <button type="button" id="qty-plus" class="w-10 h-10 rounded-full bg-white text-gray-800 font-bold shadow-sm hover:bg-gray-100 transition flex items-center justify-center cursor-pointer">+</button>
-                        </div>
-
-                        <button type="button" class="flex-1 !bg-[#1b2a47] hover:!bg-[#111827] !text-white py-3.5 px-6 rounded-full font-medium transition text-center shadow-lg cursor-pointer">
-                            Додати в кошик
-                        </button>
-
-                        <button type="button" class="like-btn p-3.5 text-gray-700 hover:text-red-500 rounded-full border border-gray-200 hover:bg-gray-50 transition cursor-pointer" aria-label="Додати в обране">
-                            <i class="far fa-heart text-xl"></i>
-                        </button>
-                    </div>
-
-                    <!-- Переваги з іконками -->
-                    <div class="space-y-3 bg-gray-50 p-4 rounded-2xl border border-gray-100 text-sm text-gray-600">
-                        <div class="flex items-center space-x-3">
-                            <i class="fas fa-[#1b2a47] fa-truck text-blue-600"></i>
-                            <span>Швидка доставка Новою Поштою по Україні (1–3 дні)</span>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                            <i class="fas fa-undo text-blue-600"></i>
-                            <span>Гарантія обміну та повернення протягом 14 днів</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Опис товару та характеристики -->
-        <div class="mt-12 bg-white p-6 sm:p-10 rounded-3xl border border-gray-200 shadow-sm">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">Опис та склад</h2>
-            <p class="text-gray-600 leading-relaxed mb-6">
-                Базова футболка прямого крою — незамінний елемент будь-якого гардероба. Виготовлена з високоякісної щільної бавовни з невеликим додаванням еластану для кращої зносостійкості та збереження форми після багатьох прань. Відмінно підходить як для щоденних образів, так і під піджак чи кардиган.
-            </p>
-
-            <h3 class="text-lg font-semibold text-gray-900 mb-3">Деталі та догляд:</h3>
-            <ul class="list-disc list-inside space-y-2 text-gray-600 text-sm">
-                <li>Склад: 95% бавовна, 5% еластан</li>
-                <li>Щільність тканини: 220 г/м²</li>
-                <li>Прання у делікатному режимі при температурі не вище 30°C</li>
-                <li>Зроблено в Україні на власному виробництві БрендUa</li>
-            </ul>
-        </div>
-    </main>
+    <main id="product-root" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"></main>
 
     <!-- Багатоколонковий футер -->
     <footer class="footer-wrapper mt-16">
@@ -195,9 +77,9 @@
             <div class="footer-col">
                 <h3>Каталог</h3>
                 <ul>
-                    <li><a href="catalog.html">Футболки</a></li>
-                    <li><a href="catalog.html">Світшоти та худі</a></li>
-                    <li><a href="catalog.html">Штани</a></li>
+                    <li><a href="catalog.html?cat=tshirts">Футболки</a></li>
+                    <li><a href="catalog.html?cat=hoodies">Світшоти та худі</a></li>
+                    <li><a href="catalog.html?cat=pants">Штани</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -265,29 +147,119 @@
 
     <!-- Скрипти сайту -->
     <script>
-        // Зміна головної картинки галереї
-        function changeImage(src, btn) {
-            document.getElementById('main-product-img').src = src;
-            document.querySelectorAll('.thumb-btn').forEach(b => {
-                b.classList.remove('border-2', 'border-[#1b2a47]');
-                b.classList.add('border', 'border-gray-200');
+        // ----- СТОРІНКА ТОВАРУ: дані беруться з Shop.PRODUCTS за ?id=... -----
+        const root = document.getElementById('product-root');
+        const p = Shop.product(new URLSearchParams(location.search).get('id'));
+        const hexes = { 'Білий': '#ffffff', 'Чорний': '#000000', 'Бежевий': '#d6c5b3', 'Молочний': '#f4efea', 'Сірий': '#9ca3af', 'Хакі': '#7a7a52', 'Світло-зелений': '#b7d3a8' };
+        let size = '', qty = 1, showErr = false;
+        const on = 'border-2 border-[#1b2a47] !bg-[#1b2a47] !text-white', off = 'border border-gray-200 !bg-white text-gray-800 hover:border-gray-900';
+
+        if (!p) {
+            document.title = 'Товар не знайдено — БрендUa';
+            root.innerHTML = '<div class="bg-white rounded-3xl border border-gray-200 text-center px-6 py-16"><h1 class="text-2xl font-bold text-gray-900">Товар не знайдено</h1><p class="text-gray-600 mt-2">Можливо, посилання застаріло.</p><a href="catalog.html" class="inline-block mt-6 !bg-[#1b2a47] !text-white px-6 py-3 rounded-full font-medium no-underline">Перейти до каталогу</a></div>';
+        } else {
+            document.title = p.name + ' — БрендUa';
+            document.querySelector('meta[name="description"]').content = p.description;
+            const images = p.images || [p.image];
+            const group = p.group ? Shop.PRODUCTS.filter(x => x.group === p.group) : [p];
+            const details = [p.color && 'Колір: ' + p.color, p.material && 'Матеріал: ' + p.material].concat(p.details || [], 'Зроблено в Україні на власному виробництві БрендUa').filter(Boolean);
+            const related = Shop.PRODUCTS.filter(x => x.id !== p.id).sort((x, y) => (y.category === p.category) - (x.category === p.category)).slice(0, 4);
+            const stepBtn = 'w-10 h-10 rounded-full bg-white text-gray-800 font-bold shadow-sm hover:bg-gray-100 transition flex items-center justify-center cursor-pointer';
+
+            root.innerHTML = `
+            <nav class="text-sm text-gray-500 mb-6 flex flex-wrap items-center gap-x-2" aria-label="Хлібні крихти">
+                <a href="index.html" class="hover:text-gray-900 transition">Головна</a><span>/</span>
+                <a href="catalog.html" class="hover:text-gray-900 transition">Каталог</a><span>/</span>
+                <a href="catalog.html?cat=${p.category}" class="hover:text-gray-900 transition">${Shop.CATEGORIES[p.category]}</a><span>/</span>
+                <span class="text-gray-900 font-medium">${p.name}</span>
+            </nav>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 bg-white p-6 sm:p-10 rounded-3xl border border-gray-200 shadow-sm">
+                <div class="space-y-4">
+                    <div class="overflow-hidden rounded-2xl bg-[#f4efea] aspect-[3/4] border border-gray-100">
+                        <img id="main-product-img" src="${images[0]}" alt="${p.name}" class="w-full h-full object-cover object-center">
+                    </div>
+                    ${images.length > 1 ? `<div class="grid grid-cols-4 gap-4">${images.map((src, i) => `
+                        <button type="button" data-src="${src}" aria-label="Фото ${i + 1}" class="thumb-btn ${i ? 'border border-gray-200 hover:border-gray-400' : 'border-2 border-[#1b2a47]'} rounded-xl overflow-hidden aspect-square bg-[#f4efea] focus:outline-none"><img src="${src}" alt="" class="w-full h-full object-cover"></button>`).join('')}</div>` : ''}
+                </div>
+                <div class="flex flex-col space-y-6">
+                    <div>
+                        ${p.bestseller ? '<span class="inline-block bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full font-semibold mb-3">Бестселер</span>' : ''}
+                        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">${p.name}</h1>
+                        ${p.sku ? `<p class="text-gray-500 text-sm mb-4">Артикул: ${p.sku}</p>` : ''}
+                        <div class="flex items-center space-x-4 mb-4">
+                            <span class="text-3xl font-bold text-gray-900">${Shop.price(p.price)}</span>
+                            <span class="text-sm text-green-600 bg-green-50 px-2.5 py-1 rounded-md font-medium"><i class="fas fa-check-circle mr-1"></i>В наявності</span>
+                        </div>
+                        <p class="text-gray-600 leading-relaxed">${p.description}</p>
+                        <hr class="border-gray-100 my-6">
+                        ${p.color ? `<div class="mb-6"><p class="text-sm font-semibold text-gray-800 mb-2">Колір: <span class="font-normal text-gray-600">${p.color}</span></p>
+                            <div class="flex gap-3">${group.map(x => `<a href="product.html?id=${x.id}" aria-label="${x.color}" ${x.id === p.id ? 'aria-current="true"' : ''} class="w-8 h-8 rounded-full border ${x.id === p.id ? 'border-2 border-[#1b2a47] ring-2 ring-offset-2 ring-[#1b2a47]' : 'border-gray-300 hover:scale-110 transition'}" style="background:${hexes[x.color] || '#d1d5db'}"></a>`).join('')}</div></div>` : ''}
+                        <div class="mb-6">
+                            <div class="flex items-center justify-between mb-2">
+                                <span id="size-label" class="text-sm font-semibold text-gray-800">Розмір:</span>
+                                <button type="button" class="open-size-modal text-xs text-blue-600 hover:underline font-medium flex items-center gap-1 cursor-pointer"><i class="fas fa-ruler"></i> Розрахувати свій розмір</button>
+                            </div>
+                            <div class="grid grid-cols-5 gap-2" id="size-selector" role="group" aria-labelledby="size-label"></div>
+                            <p id="size-error" role="alert" class="text-sm text-red-600 mt-2"></p>
+                        </div>
+                        <div class="flex items-center space-x-4 mb-8">
+                            <div class="flex items-center border border-gray-300 rounded-full p-1 bg-gray-50">
+                                <button type="button" id="qty-minus" class="${stepBtn}" aria-label="Зменшити кількість">−</button>
+                                <span id="qty-value" class="px-4 font-semibold text-gray-900" aria-live="polite">1</span>
+                                <button type="button" id="qty-plus" class="${stepBtn}" aria-label="Збільшити кількість">+</button>
+                            </div>
+                            <button type="button" id="add-btn" class="flex-1 !bg-[#1b2a47] hover:!bg-[#111827] !text-white py-3.5 px-6 rounded-full font-medium transition text-center shadow-lg cursor-pointer">Додати в кошик</button>
+                            <button type="button" id="fav-btn" class="p-3.5 text-gray-700 hover:text-red-500 rounded-full border border-gray-200 hover:bg-gray-50 transition cursor-pointer" aria-pressed="false" aria-label="Додати в обране"><i class="far fa-heart text-xl" aria-hidden="true"></i></button>
+                        </div>
+                        <div class="space-y-3 bg-gray-50 p-4 rounded-2xl border border-gray-100 text-sm text-gray-600">
+                            <div class="flex items-center space-x-3"><i class="fas fa-truck text-blue-600"></i><span>Швидка доставка Новою Поштою по Україні (1–3 дні)</span></div>
+                            <div class="flex items-center space-x-3"><i class="fas fa-undo text-blue-600"></i><span>Гарантія обміну та повернення протягом 14 днів</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 bg-white p-6 sm:p-10 rounded-3xl border border-gray-200 shadow-sm">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Деталі та догляд</h2>
+                <ul class="list-disc list-inside space-y-2 text-gray-600 text-sm">${details.map(d => `<li>${d}</li>`).join('')}</ul>
+            </div>
+            <section class="mt-12" aria-labelledby="related-title">
+                <h2 id="related-title" class="text-2xl font-bold text-gray-900 mb-6">Вам також може сподобатися</h2>
+                <ul id="related" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">${related.map(Shop.cardHTML).join('')}</ul>
+            </section>`;
+
+            const sizeBox = document.getElementById('size-selector'), err = document.getElementById('size-error');
+            const qtyValue = document.getElementById('qty-value'), fav = document.getElementById('fav-btn');
+            function paintSizes() {
+                sizeBox.innerHTML = Shop.SIZES.map(s => `<button type="button" data-size="${s}" aria-pressed="${s === size}" class="size-btn py-2.5 rounded-xl text-sm font-medium transition cursor-pointer ${s === size ? on : off} ${showErr && !size ? 'ring-2 ring-red-400' : ''}">${s}</button>`).join('');
+            }
+            function paintFav() {
+                const f = Shop.isFav(p.id), i = fav.querySelector('i');
+                fav.setAttribute('aria-pressed', String(f));
+                fav.setAttribute('aria-label', f ? 'Видалити з обраного' : 'Додати в обране');
+                i.classList.toggle('fas', f); i.classList.toggle('far', !f);
+            }
+            root.addEventListener('click', e => {
+                const sb = e.target.closest('.size-btn'), th = e.target.closest('.thumb-btn');
+                if (sb) { size = sb.dataset.size; showErr = false; err.textContent = ''; paintSizes(); sizeBox.querySelector(`[data-size="${size}"]`).focus(); }
+                if (th) {
+                    document.getElementById('main-product-img').src = th.dataset.src;
+                    root.querySelectorAll('.thumb-btn').forEach(b => { b.classList.remove('border-2', 'border-[#1b2a47]'); b.classList.add('border', 'border-gray-200'); });
+                    th.classList.remove('border-gray-200'); th.classList.add('border-2', 'border-[#1b2a47]');
+                }
+                if (e.target.closest('#qty-plus')) qtyValue.textContent = ++qty;
+                if (e.target.closest('#qty-minus') && qty > 1) qtyValue.textContent = --qty;
+                if (e.target.closest('#fav-btn')) { Shop.toggleFav(p.id); paintFav(); }
+                if (e.target.closest('#add-btn')) {
+                    if (!size) { showErr = true; err.textContent = 'Оберіть розмір, щоб додати товар у кошик.'; paintSizes(); sizeBox.querySelector('.size-btn').focus(); return; }
+                    Shop.add(p.id, size, qty);
+                }
             });
-            btn.classList.remove('border-gray-200');
-            btn.classList.add('border-2', 'border-[#1b2a47]');
+            paintSizes(); paintFav();
+            Shop.bindCards(document.getElementById('related'));
         }
 
-        // Лічильник кількості
-        const qtyValue = document.getElementById('qty-value');
-        document.getElementById('qty-plus').addEventListener('click', () => {
-            qtyValue.textContent = parseInt(qtyValue.textContent) + 1;
-        });
-        document.getElementById('qty-minus').addEventListener('click', () => {
-            if (parseInt(qtyValue.textContent) > 1) {
-                qtyValue.textContent = parseInt(qtyValue.textContent) - 1;
-            }
-        });
-
-        // Інтерактивне поле пошуку
+        
+// Інтерактивне поле пошуку
         const searchBtn = document.getElementById('search-btn');
         const searchField = document.getElementById('search-field');
 
