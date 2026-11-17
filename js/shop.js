@@ -6,7 +6,7 @@
   const SIZES = ['XS', 'S', 'M', 'L', 'XL'];
   const CATEGORIES = { tshirts: 'Футболки', shirts: 'Сорочки та блузи', sweaters: 'Светри', hoodies: 'Світшоти та худі', pants: 'Штани', outerwear: 'Верхній одяг' };
   const P = (id, name, category, color, material, price, file, description, extra) =>
-    Object.assign({ id: id, name: name, category: category, color: color, material: material, price: price, image: 'assets/images/' + file, description: description }, extra);
+    Object.assign({ brand: 'БрендUa', id: id, name: name, category: category, color: color, material: material, price: price, image: 'assets/images/' + file, description: description }, extra);
   /* УВАГА: ціни, кольори, матеріали й описи нових товарів — заглушки за назвами файлів. Виправте їх тут. */
   const PRODUCTS = [
     P('tshirt', 'Футболка базова', 'tshirts', 'Молочний', 'Бавовна', 790, 'футболка-мол.png', 'Базова футболка прямого крою з щільної бавовни — основа щоденного гардероба.', { sku: 'UA-TS-2026-W', images: ['assets/images/футболка-мол.png', 'assets/images/відгук2.png'], details: ['Склад: 95% бавовна, 5% еластан', 'Щільність тканини: 220 г/м²', 'Прання у делікатному режимі при температурі не вище 30°C'] }),
@@ -34,6 +34,8 @@
     P('puffer', 'Пуховик', 'outerwear', '', '', 3490, 'пуховикшок.png', 'Теплий пуховик для холодної пори року.'),
     P('wool-coat', 'Пальто вовняне молочне', 'outerwear', 'Молочний', 'Вовна', 3990, 'вовнапальтомол.png', 'Молочне пальто з вовни — класика на осінь і зиму.', { bestseller: true })
   ];
+  // Бренди беруться з товарів: щоб додати бренд, допишіть brand: 'Назва' в extra-об'єкт товару (останній аргумент P)
+  const BRANDS = Array.from(new Set(PRODUCTS.map((p) => p.brand))).sort((a, b) => a.localeCompare(b, 'uk'));
   const meta = (p) => [p.color, p.material].filter(Boolean).join(' · ');
 
   const load = (k) => { try { const v = JSON.parse(localStorage.getItem(k)); return Array.isArray(v) ? v : []; } catch (e) { return []; } };
@@ -116,7 +118,7 @@
     return '<li data-product-id="' + p.id + '" class="bg-white rounded-3xl overflow-hidden border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between">' +
       '<a href="product.html?id=' + p.id + '" class="block group no-underline text-inherit">' +
       '<div class="overflow-hidden bg-brand-beige aspect-[302/320]"><img src="' + p.image + '" alt="' + p.name + '" loading="lazy" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"></div>' +
-      '<div class="p-5"><h3 class="text-lg font-bold text-gray-900">' + p.name + '</h3><p class="text-sm text-gray-500 mt-1">' + meta(p) + '</p><p class="text-xl font-bold text-gray-900 mt-2">' + price(p.price) + '</p></div></a>' +
+      '<div class="p-5">' + (BRANDS.length > 1 ? '<p class="text-xs uppercase tracking-wide text-slate-400 mb-1">' + p.brand + '</p>' : '') + '<h3 class="text-lg font-bold text-gray-900">' + p.name + '</h3><p class="text-sm text-gray-500 mt-1">' + meta(p) + '</p><p class="text-xl font-bold text-gray-900 mt-2">' + price(p.price) + '</p></div></a>' +
       '<div class="p-5 pt-0 flex items-center justify-between gap-3"><div class="w-full">' +
       '<button type="button" class="add-to-cart-btn w-full !bg-brand-ink hover:!bg-brand-ink-hover !text-white py-2.5 px-4 rounded-full font-medium text-sm transition duration-200 border-none cursor-pointer hover:!transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2">В кошик</button>' +
       '<div class="quantity-control hidden items-center justify-between bg-gray-100 rounded-full p-1 border border-gray-200">' +
@@ -198,7 +200,15 @@
     const page = document.body.dataset.page;
     if (page) layout(page);
     sync(false);
+
+    const faviconLink = document.createElement('link');
+faviconLink.rel = 'icon';
+faviconLink.type = 'image/svg+xml';
+faviconLink.href = 'assets/icons/favicon.svg';
+document.head.appendChild(faviconLink);
   });
 
-  window.Shop = { PRODUCTS: PRODUCTS, CATEGORIES: CATEGORIES, SIZES: SIZES, product: product, meta: meta, price: price, cart: cart, count: count, total: total, qtyOf: qtyOf, add: add, setQty: setQty, setSize: setSize, clear: clear, inc: inc, dec: dec, isFav: isFav, toggleFav: toggleFav, cardHTML: cardHTML, bindCards: bindCards };
+
+  
+  window.Shop = { PRODUCTS: PRODUCTS, CATEGORIES: CATEGORIES, BRANDS: BRANDS, SIZES: SIZES, product: product, meta: meta, price: price, cart: cart, count: count, total: total, qtyOf: qtyOf, add: add, setQty: setQty, setSize: setSize, clear: clear, inc: inc, dec: dec, isFav: isFav, toggleFav: toggleFav, cardHTML: cardHTML, bindCards: bindCards };
 })();

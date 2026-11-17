@@ -48,6 +48,11 @@
             </div>
         </div>
 
+        <div class="mt-4 flex flex-wrap items-center gap-2" role="group" aria-labelledby="brands-label">
+            <span id="brands-label" class="text-sm font-semibold mr-1">Бренд:</span>
+            <div id="brands" class="flex flex-wrap gap-2"></div>
+        </div>
+
         <ul id="grid" class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></ul>
 
         <div id="empty" class="hidden text-center py-16">
@@ -65,6 +70,7 @@
         const state = {
             cat: Shop.CATEGORIES[params.get('cat')] ? params.get('cat') : 'all',
             q: params.get('q') || '',
+            brands: (params.get('brand') || '').split(',').filter(b => Shop.BRANDS.includes(b)),
             sort: ['asc', 'desc', 'name'].includes(params.get('sort')) ? params.get('sort') : 'default'
         };
         const grid = document.getElementById('grid'), chips = document.getElementById('chips');
@@ -79,11 +85,20 @@
             }).join('');
         }
 
+        const chipOn = '!bg-brand-ink !text-white border-brand-ink', chipOff = '!bg-white !text-gray-700 border-gray-300 hover:!bg-gray-100';
+        function renderBrands() {
+            document.getElementById('brands').innerHTML = Shop.BRANDS.map(b => {
+                const on = state.brands.includes(b);
+                return `<button type="button" data-brand="${b}" aria-pressed="${on}" class="px-4 py-2 rounded-full text-sm font-medium border cursor-pointer transition hover:!transform-none ${on ? chipOn : chipOff}">${b}</button>`;
+            }).join('');
+        }
+
         function render() {
             const q = state.q.trim().toLowerCase();
             let list = Shop.PRODUCTS.filter(p =>
                 (state.cat === 'all' || p.category === state.cat) &&
-                (!q || [p.name, p.color, p.material].join(' ').toLowerCase().includes(q)));
+                (!state.brands.length || state.brands.includes(p.brand)) &&
+                (!q || [p.name, p.brand, p.color, p.material].join(' ').toLowerCase().includes(q)));
             if (state.sort === 'asc') list.sort((a, b) => a.price - b.price);
             if (state.sort === 'desc') list.sort((a, b) => b.price - a.price);
             if (state.sort === 'name') list.sort((a, b) => a.name.localeCompare(b.name, 'uk'));
@@ -92,10 +107,11 @@
             Shop.bindCards(grid);
             document.getElementById('empty').classList.toggle('hidden', list.length > 0);
             document.getElementById('result-count').textContent = list.length ? `Знайдено товарів: ${list.length}` : '';
-            renderChips();
+            renderChips(); renderBrands();
 
             const next = new URLSearchParams();
             if (state.cat !== 'all') next.set('cat', state.cat);
+            if (state.brands.length) next.set('brand', state.brands.join(','));
             if (state.q) next.set('q', state.q);
             if (state.sort !== 'default') next.set('sort', state.sort);
             try { history.replaceState(null, '', location.pathname + (next.toString() ? '?' + next : '')); } catch (e) {}
@@ -105,10 +121,18 @@
             const b = e.target.closest('[data-cat]');
             if (b) { state.cat = b.dataset.cat; render(); chips.querySelector(`[data-cat="${state.cat}"]`).focus(); }
         });
+        document.getElementById('brands').addEventListener('click', e => {
+            const b = e.target.closest('[data-brand]');
+            if (!b) return;
+            const name = b.dataset.brand;
+            state.brands = state.brands.includes(name) ? state.brands.filter(x => x !== name) : state.brands.concat(name);
+            render();
+            document.querySelector(`#brands [data-brand="${name}"]`).focus();
+        });
         qInput.addEventListener('input', () => { state.q = qInput.value; render(); });
         sortSel.addEventListener('change', () => { state.sort = sortSel.value; render(); });
         document.getElementById('reset').addEventListener('click', () => {
-            Object.assign(state, { cat: 'all', q: '', sort: 'default' });
+            Object.assign(state, { cat: 'all', brands: [], q: '', sort: 'default' });
             qInput.value = ''; sortSel.value = 'default'; render();
         });
         render();

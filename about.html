@@ -33,35 +33,31 @@
                     <p class="text-slate-600 text-sm leading-relaxed mb-5">Вам більше не треба вгадувати. Просто вкажіть свій зріст, вагу та як ви любите носити одяг. Система не лише миттєво підбере ваш ідеальний розмір, а й простою мовою пояснить, чого очікувати: «Ця модель сяде вільно в плечах, але матиме чітку довжину по талії».</p>
                     <p class="text-slate-500 text-xs leading-relaxed">Ми створюємо якісний український одяг і беремо на себе відповідальність за ваш комфорт. Ми прибрали страх помилки, щоб ви відчували радість від оновлення гардеробу ще до того, як відкриєте пакунок.</p>
                 </div>
-                <figure>
-                    <!-- Фото лежить в assets/images/Зображення виробництва.png; поки його немає, видно бежеву заглушку -->
-                    <div class="relative aspect-[4/3] overflow-hidden bg-brand-beige flex items-center justify-center text-brand-ink/40">
-                        <i class="fas fa-image text-5xl" aria-hidden="true"></i>
-                        <img src="assets/images/Зображення%20виробництва.png" alt="Українське виробництво БрендUa" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'">
-                    </div>
-                    <figcaption class="text-xs text-slate-500 mt-3">Українське виробництво БрендUa</figcaption>
+                <figure id="about-photo">
+                    <!-- Фото задаються в скрипті внизу сторінки (ABOUT.photos): одне фото — ефект появи й наближення, кілька — слайдер -->
+                    <div id="photo-frame" class="group relative aspect-[4/3] overflow-hidden bg-brand-beige rounded-2xl"></div>
+                    <div id="photo-dots" class="flex gap-2 mt-4 empty:hidden"></div>
+                    <figcaption id="photo-caption" class="text-xs text-slate-500 mt-3"></figcaption>
                 </figure>
             </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20" aria-labelledby="steps-title">
+            <p class="text-xs font-semibold mb-4">Fit Confidence</p>
+            <h2 id="steps-title" class="text-3xl sm:text-5xl font-bold mb-12">Розмір без здогадок</h2>
+            <ol id="steps-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></ol>
         </section>
 
         <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20" aria-labelledby="values-title">
             <p class="text-xs font-semibold mb-4">Наші цінності</p>
             <h2 id="values-title" class="text-3xl sm:text-5xl font-bold mb-12">Створюємо тут. Підтримуємо своє.</h2>
-            <ul class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <li><i class="fas fa-gears text-2xl" aria-hidden="true"></i><h3 class="text-2xl font-bold mt-5 mb-3">Локальне виробництво</h3><p class="text-sm text-slate-500 leading-relaxed">Шиємо в Україні. Обираючи БрендUa, ви підтримуєте роботу українських виробників.</p></li>
-                <li><i class="fas fa-id-badge text-2xl" aria-hidden="true"></i><h3 class="text-2xl font-bold mt-5 mb-3">Підтримка своєї економіки</h3><p class="text-sm text-slate-500 leading-relaxed">Для нас українське виробництво — свідомий вибір і внесок у розвиток локальної економіки.</p></li>
-                <li><i class="fas fa-text-height text-2xl" aria-hidden="true"></i><h3 class="text-2xl font-bold mt-5 mb-3">Уважний вибір речі</h3><p class="text-sm text-slate-500 leading-relaxed">Допомагаємо познайомитися з моделлю: склад, догляд і посадка — на сторінці товару, поруч із Size Advisor.</p></li>
-            </ul>
+            <ul id="values-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></ul>
         </section>
 
         <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24" aria-labelledby="stats-title">
             <h2 id="stats-title" class="text-3xl sm:text-5xl font-bold mb-3">БрендUa у цифрах</h2>
             <p class="text-xs text-slate-500 mb-10">Дані та період вимірювання очікують уточнення. Поля нижче — не підтверджені показники.</p>
-            <dl class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="border-t border-gray-200 pt-6"><dt class="text-xl font-bold mb-3">Наші клієнти</dt><dd class="font-semibold text-sm mb-3">[Кількість клієнтів]</dd><dd class="text-xs text-slate-500">Кількість покупців БрендUa.</dd></div>
-                <div class="border-t border-gray-200 pt-6"><dt class="text-xl font-bold mb-3">Задоволені покупці</dt><dd class="font-semibold text-sm mb-3">[Відсоток задоволених]</dd><dd class="text-xs text-slate-500">Частка покупців, задоволених замовленням.</dd></div>
-                <div class="border-t border-gray-200 pt-6"><dt class="text-xl font-bold mb-3">Повернення із Size Advisor</dt><dd class="font-semibold text-sm mb-3">[Частка повернень із Size Advisor]</dd><dd class="text-xs text-slate-500">Частка повернень після використання помічника.</dd></div>
-            </dl>
+            <ul id="stats-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></ul>
         </section>
 
         <section class="bg-brand-beige py-20 px-4 text-center" aria-labelledby="cta-title">
@@ -72,5 +68,100 @@
     </main>
 
     <div id="site-footer"></div>
+
+    <script>
+        // ===== ДАНІ СТОРІНКИ «ПРО НАС»: змінюйте тексти й цифри тут, картки перемалюються самі =====
+        const ABOUT = {
+            steps: [
+                { icon: 'fa-ruler-vertical', title: 'Вкажіть зріст і вагу', text: 'Два прості параметри замість розмірних таблиць і замірів сантиметром.' },
+                { icon: 'fa-shirt', title: 'Оберіть, як любите носити одяг', text: 'Щільно по фігурі чи вільно: система враховує вашу звичку.' },
+                { icon: 'fa-circle-check', title: 'Отримайте розмір і пояснення', text: 'Миттєвий розмір і проста мова про посадку: де буде вільно, а де чітка довжина по талії.' }
+            ],
+            values: [
+                { icon: 'fa-gears', title: 'Локальне виробництво', text: 'Шиємо в Україні. Обираючи БрендUa, ви підтримуєте роботу українських виробників.' },
+                { icon: 'fa-id-badge', title: 'Підтримка своєї економіки', text: 'Для нас українське виробництво — свідомий вибір і внесок у розвиток локальної економіки.' },
+                { icon: 'fa-text-height', title: 'Уважний вибір речі', text: 'Допомагаємо познайомитися з моделлю: склад, догляд і посадка — на сторінці товару, поруч із Size Advisor.' }
+            ],
+            // value: null -> показується заглушка в дужках; число -> анімується від 0; рядок -> показується як є
+            stats: [
+                { title: 'Наші клієнти', value: null, placeholder: '[Кількість клієнтів]', suffix: '', note: 'Кількість покупців БрендUa.' },
+                { title: 'Задоволені покупці', value: null, placeholder: '[Відсоток задоволених]', suffix: '%', note: 'Частка покупців, задоволених замовленням.' },
+                { title: 'Повернення із Size Advisor', value: null, placeholder: '[Частка повернень із Size Advisor]', suffix: '%', note: 'Частка повернень після використання помічника.' }
+            ]
+        };
+
+        // Щоб додати ще фото, дописуйте об'єкти сюди: з двох і більше фото вмикається слайдер
+        ABOUT.photos = [
+            { src: 'assets/images/Зображення%20виробництва.png', alt: 'Українське виробництво БрендUa', caption: 'Українське виробництво БрендUa' }
+        ];
+
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const card = 'reveal bg-white rounded-2xl border border-gray-200 p-6 shadow-sm transition duration-500 hover:shadow-lg hover:border-gray-300 ' + (reduce ? '' : 'opacity-0 translate-y-4');
+
+        function fill(id, items, html) {
+            document.getElementById(id).innerHTML = items.map((it, i) => `<li class="${card}" data-i="${i}">${html(it, i)}</li>`).join('');
+        }
+        const iconBox = i => `<span class="w-12 h-12 rounded-full bg-brand-beige flex items-center justify-center"><i class="fas ${i} text-lg" aria-hidden="true"></i></span>`;
+
+        fill('steps-grid', ABOUT.steps, (s, i) => `<div class="flex items-center justify-between">${iconBox(s.icon)}<span class="text-4xl font-bold text-gray-200" aria-hidden="true">${i + 1}</span></div>
+            <h3 class="text-xl font-bold mt-5 mb-2">${s.title}</h3><p class="text-sm text-slate-500 leading-relaxed">${s.text}</p>`);
+        fill('values-grid', ABOUT.values, v => `${iconBox(v.icon)}<h3 class="text-xl font-bold mt-5 mb-2">${v.title}</h3><p class="text-sm text-slate-500 leading-relaxed">${v.text}</p>`);
+        fill('stats-grid', ABOUT.stats, s => `<h3 class="text-lg font-bold mb-3">${s.title}</h3>
+            <p class="stat-value text-2xl font-bold mb-3" ${typeof s.value === 'number' ? `data-target="${s.value}" data-suffix="${s.suffix}"` : ''}>${s.value === null ? `<span class="text-sm font-semibold text-slate-400">${s.placeholder}</span>` : s.value + (typeof s.value === 'number' ? s.suffix : '')}</p>
+            <p class="text-xs text-slate-500">${s.note}</p>`);
+
+        function countUp(el) {
+            const target = +el.dataset.target, suffix = el.dataset.suffix || '';
+            if (reduce) { el.textContent = target.toLocaleString('uk-UA') + suffix; return; }
+            const t0 = performance.now();
+            (function tick(t) {
+                const k = Math.min((t - t0) / 1200, 1);
+                el.textContent = Math.round(target * (1 - Math.pow(1 - k, 3))).toLocaleString('uk-UA') + suffix;
+                if (k < 1) requestAnimationFrame(tick);
+            })(t0);
+        }
+
+        // Поява карток при прокручуванні + лічильники
+        const io = new IntersectionObserver(entries => entries.forEach(e => {
+            if (!e.isIntersecting) return;
+            const el = e.target, delay = (+el.dataset.i || 0) * 120;
+            el.style.transitionDelay = delay + 'ms';
+            el.classList.remove('opacity-0', 'translate-y-4');
+            setTimeout(() => { el.style.transitionDelay = ''; }, delay + 600);
+            const num = el.querySelector('[data-target]'); if (num) countUp(num);
+            io.unobserve(el);
+        }), { threshold: 0.2 });
+        // ===== ФОТО: поява при прокручуванні, наближення при наведенні, слайдер для кількох фото =====
+        (function () {
+            const fig = document.getElementById('about-photo'), frame = document.getElementById('photo-frame');
+            const cap = document.getElementById('photo-caption'), dots = document.getElementById('photo-dots'), photos = ABOUT.photos;
+            let cur = 0, timer;
+            frame.innerHTML = '<i class="fas fa-image text-5xl absolute inset-0 m-auto w-fit h-fit text-brand-ink/30" aria-hidden="true"></i>' +
+                photos.map((p, i) => `<img src="${p.src}" alt="${p.alt}" class="slide absolute inset-0 w-full h-full object-cover transition duration-700 ease-out group-hover:scale-105 ${i ? 'opacity-0' : 'opacity-100'}" ${i ? 'aria-hidden="true"' : ''} onerror="this.style.display='none'">`).join('');
+            cap.textContent = photos[0].caption;
+            fig.classList.add('reveal', 'transition', 'duration-700');
+            if (!reduce) fig.classList.add('opacity-0', 'translate-y-4');
+
+            if (photos.length > 1) {
+                const slides = frame.querySelectorAll('.slide');
+                const dotBase = 'w-3 h-3 p-0 rounded-full border-none cursor-pointer transition ';
+                dots.innerHTML = photos.map((p, i) => `<button type="button" data-i="${i}" aria-label="Фото ${i + 1} з ${photos.length}" class="${dotBase}"></button>`).join('');
+                const show = i => {
+                    cur = (i + photos.length) % photos.length;
+                    slides.forEach((s, k) => { s.classList.toggle('opacity-100', k === cur); s.classList.toggle('opacity-0', k !== cur); s.setAttribute('aria-hidden', String(k !== cur)); });
+                    dots.querySelectorAll('button').forEach((d, k) => { d.className = dotBase + (k === cur ? '!bg-brand-ink' : '!bg-gray-300'); d.setAttribute('aria-current', String(k === cur)); });
+                    cap.textContent = photos[cur].caption;
+                };
+                const stop = () => clearInterval(timer);
+                const play = () => { stop(); if (!reduce) timer = setInterval(() => show(cur + 1), 5000); };
+                dots.addEventListener('click', e => { const b = e.target.closest('button'); if (b) { show(+b.dataset.i); play(); } });
+                ['mouseenter', 'focusin'].forEach(ev => fig.addEventListener(ev, stop));
+                ['mouseleave', 'focusout'].forEach(ev => fig.addEventListener(ev, play));
+                show(0); play();
+            }
+        })();
+
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    </script>
 </body>
 </html>

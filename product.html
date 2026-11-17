@@ -162,7 +162,7 @@
             document.querySelector('meta[name="description"]').content = p.description;
             const images = p.images || [p.image];
             const group = p.group ? Shop.PRODUCTS.filter(x => x.group === p.group) : [p];
-            const details = [p.color && 'Колір: ' + p.color, p.material && 'Матеріал: ' + p.material].concat(p.details || [], 'Зроблено в Україні на власному виробництві БрендUa').filter(Boolean);
+            const details = [p.brand && 'Бренд: ' + p.brand, p.color && 'Колір: ' + p.color, p.material && 'Матеріал: ' + p.material].concat(p.details || [], 'Зроблено в Україні на власному виробництві БрендUa').filter(Boolean);
             const related = Shop.PRODUCTS.filter(x => x.id !== p.id).sort((x, y) => (y.category === p.category) - (x.category === p.category)).slice(0, 4);
             const stepBtn = 'w-10 h-10 rounded-full bg-white text-gray-800 font-bold shadow-sm hover:bg-gray-100 transition flex items-center justify-center cursor-pointer';
 

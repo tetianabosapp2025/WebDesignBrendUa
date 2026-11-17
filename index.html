@@ -26,7 +26,7 @@
                             'deep-hover': '#111827',
                             ink: '#1b2a47',
                             'ink-hover': '#22385f',
-                            accent: '#A64B35',
+                            accent: '#1a2b4c',
                             beige: '#f4efea',
                             'beige-hover': '#e8dfd5',
                             input: '#dedede'
@@ -36,6 +36,13 @@
             }
         };
     </script>
+
+<!-- Стилі Swiper.js -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+<!-- Стилі Fancybox -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css">
+
     <!-- Головний файл стилів -->
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -152,34 +159,17 @@
             <div class="hero-content">
                 <h1 class="hero-title" id="hero-title">Українська ідентичність. Бездоганна посадка без складних таблиць і замірів.</h1>
                 <p class="hero-text">Твій комфорт — наш стандарт. Розумна система Fit Confidence автоматично розрахує ідеальний розмір для доставки по Україні чи за кордон.</p>
+                
+<p class="hero-text typed-line">
+    <span id="typed-text"></span>
+</p>
+
                 <a href="catalog.html" class="hero-buttons transition duration-200 hover:!bg-brand-ink-hover hover:!shadow-md hover:!transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 inline-block text-center">Знайти свій ідеальний лук</a>
             </div>
         </section>
 
         <!-- Смужка переваг із кастомними SVG-іконками -->
-        <section class="features-strip" aria-label="Переваги бренду">
-            <div class="feature-item">
-                <img src="assets/icons/виробництво.svg" alt="" aria-hidden="true" class="w-8 h-8 object-contain">
-                <div>
-                    <strong>Виготовлено в Україні</strong>
-                    <span>Власне виробництво</span>
-                </div>
-            </div>
-            <div class="feature-item">
-                <img src="assets/icons/допомога.svg" alt="" aria-hidden="true" class="w-8 h-8 object-contain">
-                <div>
-                    <strong>Допомога з розміром</strong>
-                    <span>За вашими параметрами</span>
-                </div>
-            </div>
-            <div class="feature-item">
-                <img src="assets/icons/обмін.svg" alt="" aria-hidden="true" class="w-8 h-8 object-contain">
-                <div>
-                    <strong>Зручний обмін</strong>
-                    <span>Протягом 14 днів</span>
-                </div>
-            </div>
-        </section>
+        <section class="features-strip" id="features" aria-label="Переваги бренду"></section>
 
         <!-- Секція категорій на Tailwind Grid -->
         <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" aria-labelledby="categories-title">
@@ -242,32 +232,154 @@
             </div>
         </section>
 
-        <!-- Секція відгуків -->
-        <section class="testimonials-section" aria-labelledby="testimonials-title">
-            <h2 class="section-title" id="testimonials-title">БрендUa на наших покупцях</h2>
-            <p class="section-subtitle">Реальні образи та відгуки — подивись, як речі сидять на різних параметрах.</p>
-            
-            <div class="testimonials-grid">
-                <article class="testimonial-card">
-                    <img src="assets/images/відгук1.png" alt="Покупець Олена у худі вільного крою" loading="lazy">
-                    <p class="testimonial-text">«М'яке й затишне. Розмір підійшов, рукави саме такої довжини, як хотіла.»</p>
+        
+<!-- Секція відгуків Swiper.js -->
+<section class="testimonials-section" aria-labelledby="testimonials-title">
+    <h2 class="section-title" id="testimonials-title">
+        БрендUa на наших покупцях
+    </h2>
+    <p class="section-subtitle">
+        Відгуки покупців та стильні образи БрендUa.
+    </p>
+
+    <div class="swiper reviews-swiper max-w-7xl mx-auto px-4">
+        <div class="swiper-wrapper">
+
+            <!-- Слайд 1 -->
+            <div class="swiper-slide !h-auto">
+                <article class="testimonial-card h-full">
+                    <p class="testimonial-text">
+                        «М'яке й затишне. Розмір підійшов, рукави саме такої довжини, як хотіла.»
+                    </p>
                     <h3 class="testimonial-author">Олена · Худі вільного крою</h3>
                     <p class="author-params">Зріст 170 см, розмір M</p>
                 </article>
-                <article class="testimonial-card">
-                    <img src="assets/images/відгук2.png" alt="Покупець Андрій у базовій футболці" loading="lazy">
-                    <p class="testimonial-text">«Гарно тримає форму після прання. Взяв ще одну в іншому кольорі.»</p>
+            </div>
+
+            <!-- Слайд 2 -->
+            <div class="swiper-slide !h-auto">
+                <article class="testimonial-card h-full">
+                    <p class="testimonial-text">
+                        «Гарно тримає форму після прання. Взяв ще одну в іншому кольорі.»
+                    </p>
                     <h3 class="testimonial-author">Андрій · Футболка базова</h3>
                     <p class="author-params">Зріст 182 см, розмір L</p>
                 </article>
-                <article class="testimonial-card">
-                    <img src="assets/images/відгук3.png" alt="Покупець Марія у штанах прямого крою" loading="lazy">
-                    <p class="testimonial-text">«Зручна посадка і приємна тканина. Тепер це моя улюблена щоденна база.»</p>
+            </div>
+
+            <!-- Слайд 3 -->
+            <div class="swiper-slide !h-auto">
+                <article class="testimonial-card h-full">
+                    <p class="testimonial-text">
+                        «Зручна посадка і приємна тканина. Тепер це моя улюблена щоденна база.»
+                    </p>
                     <h3 class="testimonial-author">Марія · Штани прямого крою</h3>
                     <p class="author-params">Зріст 165 см, розмір S</p>
                 </article>
             </div>
-        </section>
+
+            <!-- Слайд 4 -->
+            <div class="swiper-slide !h-auto">
+                <article class="testimonial-card h-full">
+                    <p class="testimonial-text">
+                        Базові футболки для комфортних повсякденних образів.
+                    </p>
+                    <h3 class="testimonial-author">Колекція футболок</h3>
+                    <p class="author-params">Стиль та комфорт щодня</p>
+                </article>
+            </div>
+
+            <!-- Слайд 5 -->
+            <div class="swiper-slide !h-auto">
+                <article class="testimonial-card h-full">
+                    <p class="testimonial-text">
+                        Зручні худі для сучасного українського стилю.
+                    </p>
+                    <h3 class="testimonial-author">Колекція худі</h3>
+                    <p class="author-params">Український бренд одягу</p>
+                </article>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Навігація слайдера -->
+    <div class="flex items-center justify-center gap-5 mt-6">
+        <button type="button" class="reviews-prev w-9 h-9 rounded-full bg-white text-[#1e2b48] border border-gray-200 shadow-sm" aria-label="Попередній відгук">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+
+        <div class="reviews-pagination !w-auto"></div>
+
+        <button type="button" class="reviews-next w-9 h-9 rounded-full bg-white text-[#1e2b48] border border-gray-200 shadow-sm" aria-label="Наступний відгук">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</section>
+
+
+
+<!-- Галерея Fancybox -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
+         aria-labelledby="gallery-title">
+
+    <h2 id="gallery-title"
+        class="text-2xl sm:text-3xl font-bold text-[#1e2b48] mb-4">
+        Галерея БрендUa
+    </h2>
+
+    <p class="text-gray-600 mb-8">
+        Стиль, комфорт та українська якість
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+
+        <!-- Фото 1 -->
+        <a href="assets/images/галерея1.jpg"
+           data-fancybox="brand-gallery"
+           data-caption="Колекція БрендUa — фото 1">
+            <img src="assets/images/галерея1.jpg"
+                 alt="Колекція одягу БрендUa — фото 1"
+                 loading="lazy"
+                 class="w-full h-auto object-contain rounded-xl shadow-md hover:scale-[1.02] transition duration-300 cursor-zoom-in"
+
+        </a>
+
+        <!-- Фото 2 -->
+        <a href="assets/images/галерея2.jpg"
+           data-fancybox="brand-gallery"
+           data-caption="Колекція БрендUa — фото 2">
+            <img src="assets/images/галерея2.jpg"
+                 alt="Колекція одягу БрендUa — фото 2"
+                 loading="lazy"
+                 class="w-full h-auto object-contain rounded-xl shadow-md hover:scale-[1.02] transition duration-300 cursor-zoom-in"
+
+        </a>
+
+        <!-- Фото 3 -->
+        <a href="assets/images/галерея3.jpg"
+           data-fancybox="brand-gallery"
+           data-caption="Колекція БрендUa — фото 3">
+            <img src="assets/images/галерея3.jpg"
+                 alt="Колекція одягу БрендUa — фото 3"
+                 loading="lazy"
+                class="w-full h-auto object-contain rounded-xl shadow-md hover:scale-[1.02] transition duration-300 cursor-zoom-in"
+        </a>
+
+        <!-- Фото 4 -->
+        <a href="assets/images/галерея4.jpg"
+           data-fancybox="brand-gallery"
+           data-caption="Колекція БрендUa — фото 4">
+            <img src="assets/images/галерея4.jpg"
+                 alt="Колекція одягу БрендUa — фото 4"
+                 loading="lazy"
+                 class="w-full h-auto object-contain rounded-xl shadow-md hover:scale-[1.02] transition duration-300 cursor-zoom-in"
+        </a>
+
+    </div>
+</section>
+
+
 
         <!-- Блок Size Advisor -->
         <section id="size-advisor" class="size-advisor-banner" aria-labelledby="advisor-title">
@@ -410,64 +522,53 @@
         </div>
     </div>
 
+
+<!-- Бібліотека Swiper.js -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- Бібліотека Fancybox -->
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+
+<!-- Бібліотека Typed.js -->
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
     <!-- Скрипти -->
     <script src="js/shop.js"></script>
     <script>
-        // Мобільне меню
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        function setMobileMenuOpen(isOpen) {
-            mobileMenu.classList.toggle('hidden', !isOpen);
-            menuBtn.setAttribute('aria-expanded', String(isOpen));
-        }
-
-        menuBtn.addEventListener('click', () => {
-            const isOpen = menuBtn.getAttribute('aria-expanded') === 'true';
-            setMobileMenuOpen(!isOpen);
-        });
-
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 768) {
-                setMobileMenuOpen(false);
-            }
-        });
-
-        // Інтерактивне поле пошуку
-        const searchBtn = document.getElementById('search-btn');
-        const searchField = document.getElementById('search-field');
-        const searchInput = document.getElementById('desktop-search');
-
-        function setSearchOpen(isOpen) {
-            searchField.classList.toggle('hidden', !isOpen);
-            searchBtn.setAttribute('aria-expanded', String(isOpen));
-            if (isOpen) {
-                searchInput.focus();
-            }
-        }
-
-        if (searchBtn && searchField) {
-            searchBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                setSearchOpen(searchBtn.getAttribute('aria-expanded') !== 'true');
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!searchField.contains(e.target) && !searchBtn.contains(e.target)) {
-                    setSearchOpen(false);
-                }
-            });
-        }
+        // Мобільне меню й пошук у шапці обслуговує js/shop.js (спільна шапка)
 
         // КОШИК І ОБРАНЕ: логіка в js/shop.js, стан зберігається в localStorage
         document.getElementById('bestsellers').innerHTML = Shop.PRODUCTS.filter(p => p.bestseller).slice(0, 4).map(Shop.cardHTML).join('');
         Shop.bindCards(document);
 
+        // ===== СМУЖКА ПЕРЕВАГ: дані тут, картки малюються скриптом =====
+        const FEATURES = [
+            { icon: 'assets/icons/виробництво.svg', title: 'Виготовлено в Україні', text: 'Власне виробництво', href: 'about.html' },
+            { icon: 'assets/icons/допомога.svg', title: 'Допомога з розміром', text: 'За вашими параметрами', href: '#size-advisor' },
+            { icon: 'assets/icons/обмін.svg', title: 'Зручний обмін', text: 'Протягом 14 днів', href: 'delivery.html' }
+        ];
+        const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const strip = document.getElementById('features');
+        strip.innerHTML = FEATURES.map((f, i) => `
+            <a href="${f.href}" data-i="${i}" class="feature-item group no-underline rounded-lg transition duration-500 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-4 ${noMotion ? '' : 'opacity-0 translate-y-4'}">
+                <img src="${f.icon}" alt="" aria-hidden="true" class="w-8 h-8 object-contain transition duration-300 group-hover:scale-110">
+                <div><strong class="group-hover:underline">${f.title}</strong><span>${f.text}</span></div>
+            </a>`).join('');
+        const featureIO = new IntersectionObserver(entries => entries.forEach(e => {
+            if (!e.isIntersecting) return;
+            const el = e.target, d = (+el.dataset.i) * 150;
+            el.style.transitionDelay = d + 'ms';
+            el.classList.remove('opacity-0', 'translate-y-4');
+            setTimeout(() => { el.style.transitionDelay = ''; }, d + 600);
+            featureIO.unobserve(el);
+        }), { threshold: 0.3 });
+        strip.querySelectorAll('.feature-item').forEach(el => featureIO.observe(el));
+
         // Модальне вікно підбору розміру
         const sizeModal = document.getElementById('size-modal');
         const openModalBtns = document.querySelectorAll('.open-size-modal');
         const closeModalBtn = document.getElementById('close-modal-btn');
-        const modalBackground = document.querySelectorAll('body > .skip-link, body > header, body > main, body > footer');
+        const modalBackground = document.querySelectorAll('body > .skip-link, body > #site-header, body > main, body > #site-footer');
         let modalOpener = null;
 
         function setSizeModalOpen(isOpen) {
@@ -521,17 +622,6 @@
                 }
                 return;
             }
-
-            if (e.key === 'Escape') {
-                if (searchBtn.getAttribute('aria-expanded') === 'true') {
-                    setSearchOpen(false);
-                    searchBtn.focus();
-                }
-                if (menuBtn.getAttribute('aria-expanded') === 'true') {
-                    setMobileMenuOpen(false);
-                    menuBtn.focus();
-                }
-            }
         });
 
         // Toggle "Детальніше..." у модальному вікні
@@ -547,5 +637,69 @@
             });
         }
     </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    new Swiper('.reviews-swiper', {
+        loop: true,
+        spaceBetween: 24,
+        slidesPerView: 1,
+
+        autoplay: {
+            delay: 3500,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true
+        },
+
+        pagination: {
+            el: '.reviews-pagination',
+            clickable: true
+        },
+
+        navigation: {
+            nextEl: '.reviews-next',
+            prevEl: '.reviews-prev'
+        },
+
+        breakpoints: {
+            320: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 2 }
+        }
+    });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    Fancybox.bind("[data-fancybox='brand-gallery']", {
+        Carousel: {
+            transition: "fade"
+        },
+        Images: {
+            Panzoom: {
+                maxScale: 3
+            }
+        }
+    });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    new Typed('#typed-text', {
+        strings: [
+            'Український стиль для кожного.',
+            'Якість та комфорт щодня.',
+            'Знайди свій ідеальний образ.'
+        ],
+        typeSpeed: 50,
+        backSpeed: 30,
+        backDelay: 1500,
+        loop: true
+    });
+});
+</script>
+
 </body>
 </html>

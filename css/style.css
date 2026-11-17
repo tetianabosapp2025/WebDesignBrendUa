@@ -17,7 +17,7 @@
   --color-primary: #1a2b4c;
   --color-primary-hover: #22385f;
   --color-secondary: #F3ECE4;
-  --color-accent: #A64B35;
+  --color-accent: #1a2b4c
   --color-bg: #FAFAF8;
   --color-surface: #FFFFFF;
   --color-text-main: #111A28;
@@ -1104,4 +1104,27 @@ main.main-content > section[aria-labelledby="bestsellers-title"] > ul > li > a:f
 
 .like-btn[aria-pressed="true"] {
   color: #ef4444;
+}
+
+
+.reviews-swiper .testimonial-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 24px;
+    min-height: 0;
+    height: auto;
+    text-align: left;
+}
+
+.reviews-swiper .testimonial-text {
+    margin: 0 0 12px;
+}
+
+.reviews-swiper .testimonial-author {
+    margin: 0 0 4px;
+}
+
+.reviews-swiper .author-params {
+    margin: 0;
 }
