@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/theme.js"></script>
     <title>БрендUa — Інтернет-магазин одягу</title>
     <meta name="description" content="Український одяг із бездоганною посадкою. Знайдіть свій розмір і базові речі для гардероба.">
+    <link rel="preload" as="image" href="assets/images/Hero_bg.png" fetchpriority="high">
 
     <!-- Підключення шрифтів Noto Sans TC та DM Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,130 +48,44 @@
     <!-- Головний файл стилів -->
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="relative">
-    <body data-page="home"></body>
+<body class="relative" data-page="home">
     <a href="#main-content" class="skip-link">Перейти до основного вмісту</a>
 
     <div id="site-header"></div>
-    <!-- Шапка сайту (Header) 
-    <header class="bg-white border-b border-gray-200 sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
-            <a href="index.html" class="flex items-center" aria-label="БрендUa — головна сторінка">
-                <img src="assets/images/logo.svg" alt="Логотип БрендUa">
-            </a>
-            
-            <nav class="hidden md:flex items-center space-x-8" aria-label="Головна навігація">
-                <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium transition">Головна</a>
-                <a href="catalog.html" class="text-gray-700 hover:text-blue-600 font-medium transition">Каталог</a>
-                <a href="about.html" class="text-gray-700 hover:text-blue-600 font-medium transition">Про нас</a>
-            </nav>
-
-            <div class="hidden sm:flex items-center space-x-4 sm:space-x-6">
-                <!-- Адаптивний блок пошуку --
-                <div class="relative flex items-center">
-                    <button id="search-btn" type="button" aria-label="Пошук по сайту" aria-expanded="false" aria-controls="search-field" class="bg-transparent !text-gray-600 hover:!text-blue-600 flex items-center justify-center gap-2 p-0 border-none shadow-none transition focus:outline-none cursor-pointer">
-                        <i class="fas fa-search text-gray-600"></i> 
-                        <span class="hidden xl:inline text-sm text-gray-600">Пошук</span>
-                    </button>
-
-                    <!-- Випадаюче поле пошуку --
-                    <div id="search-field" class="hidden absolute right-0 top-full mt-3 w-72 bg-white p-2.5 rounded-xl shadow-xl border border-gray-200 z-50">
-                        <form action="catalog.html" method="GET" class="flex items-center gap-2">
-                            <label for="desktop-search" class="sr-only">Пошук товарів</label>
-                            <input id="desktop-search" name="q" type="text" placeholder="Пошук товарів..." class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 bg-white">
-                            <button type="submit" aria-label="Шукати" class="!bg-brand-deep !text-white px-3 py-1.5 rounded-lg text-xs font-medium hover:!bg-brand-deep-hover transition">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-
-                <a href="profile.html" aria-label="Особистий кабінет" class="text-gray-600 hover:text-blue-600 flex items-center gap-2 transition">
-                    <i class="fas fa-user"></i> 
-                    <span class="hidden xl:inline text-sm">Особистий кабінет</span>
-                </a>
-
-                <!-- Динамічна іконка кошика --
-                <a href="cart.html" aria-label="Кошик покупок" class="text-gray-600 hover:text-blue-600 flex items-center gap-2 relative transition">
-                    <div class="relative">
-                        <i class="fas fa-shopping-bag text-lg"></i>
-                        <span class="cart-count absolute -top-2 -right-2 bg-blue-600 text-white text-xs rounded-full px-1.5 py-0.5 font-bold transition-transform duration-200">0</span>
-                    </div>
-                    <span class="hidden xl:inline text-sm">Кошик</span>
-                </a>
-
-                <button class="open-size-modal !bg-brand-deep hover:!bg-brand-ink-hover !text-white px-4 py-2 rounded-lg font-medium transition duration-200 hover:!shadow-md hover:!transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2" type="button">
-                    Підібрати розмір
-                </button>
-            </div>
-
-            <a href="cart.html" aria-label="Кошик покупок" class="mobile-cart sm:hidden text-gray-700 hover:text-blue-600 flex items-center justify-center relative transition w-11 h-11">
-                <i class="fas fa-shopping-bag text-lg"></i>
-                <span class="cart-count absolute top-1 right-1 bg-blue-600 text-white text-xs rounded-full px-1.5 py-0.5 font-bold transition-transform duration-200">0</span>
-            </a>
-
-            <button id="menu-btn" type="button" class="md:hidden bg-transparent !text-gray-700 hover:!text-blue-600 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg border-none" aria-label="Відкрити або закрити меню" aria-expanded="false" aria-controls="mobile-menu">
-                <i class="fas fa-bars text-2xl"></i>
-            </button>
-        </div>
-
-        <!-- Випадаюче мобільне меню --
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-200 px-4 pt-3 pb-6 space-y-4">
-            <form action="catalog.html" method="GET" class="flex items-center gap-2 pt-1">
-                <label for="mobile-search" class="sr-only">Пошук товарів</label>
-                <input id="mobile-search" name="q" type="text" placeholder="Пошук товарів..." class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900">
-                <button type="submit" aria-label="Шукати товари" class="!bg-brand-deep !text-white px-4 py-2 rounded-lg text-sm font-medium hover:!bg-brand-deep-hover transition">
-                    <i class="fas fa-search"></i>
-                </button>
-            </form>
-
-            <nav class="space-y-2 border-t border-gray-100 pt-2" aria-label="Мобільне меню">
-                <a href="index.html" class="block text-gray-700 hover:text-blue-600 font-medium py-1 transition">Головна</a>
-                <a href="catalog.html" class="block text-gray-700 hover:text-blue-600 font-medium py-1 transition">Каталог</a>
-                <a href="about.html" class="block text-gray-700 hover:text-blue-600 font-medium py-1 transition">Про нас</a>
-            </nav>
-
-            <div class="pt-3 border-t border-gray-100 flex items-center justify-between text-gray-700">
-                <a href="profile.html" class="flex items-center gap-2 hover:text-blue-600">
-                    <i class="fas fa-user"></i>
-                    <span class="text-sm">Кабінет</span>
-                </a>
-                <a href="cart.html" class="flex items-center gap-2 hover:text-blue-600 relative">
-                    <div class="relative">
-                        <i class="fas fa-shopping-bag text-lg"></i>
-                        <span class="cart-count absolute -top-2 -right-2 bg-blue-600 text-white text-xs rounded-full px-1.5 py-0.5 font-bold transition-transform duration-200">0</span>
-                    </div>
-                    <span class="text-sm">Кошик</span>
-                </a>
-            </div>
-
-            <div class="pt-2">
-                <button class="open-size-modal !bg-brand-deep hover:!bg-brand-ink-hover !text-white px-4 py-2.5 rounded-lg font-medium w-full text-center transition duration-200 hover:!shadow-md hover:!transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2" type="button">
-                    Підібрати розмір
-                </button>
-            </div>
-        </div>
-    </header> -->
-
-    <p id="cart-live-region" class="sr-only" aria-live="polite" aria-atomic="true"></p>
 
     <main id="main-content" class="main-content">
         <!-- Hero-секція -->
-        <section class="hero-section" aria-labelledby="hero-title">
+        <section class="hero-section hero-with-video" aria-labelledby="hero-title" id="hero-banner">
+            <!-- Відео відтворюється автоматично; фото залишається запасним фоном. -->
+            <video class="hero-video" id="hero-video" muted playsinline loop preload="none"
+                   poster="assets/images/Hero_bg.png" aria-hidden="true" tabindex="-1">
+                <source data-src="assets/video/video_content.webm" type="video/webm">
+                <source data-src="assets/video/video_content.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay" aria-hidden="true"></div>
             <div class="hero-content">
-                <h1 class="hero-title" id="hero-title">Українська ідентичність. Бездоганна посадка без складних таблиць і замірів.</h1>
+                <!-- Друкований рядок (Typed.js): курсивом, кольором бренду; min-h не дає тексту «стрибати» -->
+                <p class="typed-line italic text-lg !font-medium !text-brand-primary !mb-3 min-h-[3.25rem] sm:min-h-[1.75rem]" aria-hidden="true"><span id="typed-text"></span></p>
+                <h1 class="hero-title" id="hero-title" style="font-size: clamp(1.75rem, 1.2rem + 2.2vw, 3rem);">Українська ідентичність. Бездоганна посадка без складних таблиць і замірів.</h1>
                 <p class="hero-text">Твій комфорт — наш стандарт. Розумна система Fit Confidence автоматично розрахує ідеальний розмір для доставки по Україні чи за кордон.</p>
-                
-<p class="hero-text typed-line">
-    <span id="typed-text"></span>
-</p>
-
                 <a href="catalog.html" class="hero-buttons transition duration-200 hover:!bg-brand-ink-hover hover:!shadow-md hover:!transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 inline-block text-center">Знайти свій ідеальний лук</a>
             </div>
         </section>
 
         <!-- Смужка переваг із кастомними SVG-іконками -->
-        <section class="features-strip" id="features" aria-label="Переваги бренду"></section>
+        <section class="features-strip" id="features" aria-label="Переваги бренду" style="margin-bottom: 0;"></section>
+
+        <!-- Блок Size Advisor -->
+        <section id="size-advisor" class="size-advisor-banner" style="margin-top: 0;" aria-labelledby="advisor-title">
+            <div class="size-advisor-content">
+                <h2 id="advisor-title">Не впевнені у розмірі?</h2>
+                <p>Вкажіть свої параметри й отримайте рекомендацію. Обирайте одяг із впевненістю, а не навмання.<br><small>Займе близько 1 хвилини · Без реєстрації</small></p>
+            </div>
+            <div class="size-advisor-buttons">
+                <button class="open-size-modal btn-primary !bg-brand-primary hover:!bg-brand-ink-hover !text-white transition duration-200 hover:!shadow-md hover:!transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2" type="button">Підібрати розмір</button>
+                <a href="catalog.html" class="btn-secondary transition duration-200 hover:bg-brand-beige-hover hover:shadow-sm hover:!transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2">Каталог</a>
+            </div>
+        </section>
 
         <!-- Секція категорій на Tailwind Grid -->
         <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" aria-labelledby="categories-title">
@@ -214,8 +130,8 @@
                     <p class="text-gray-600 mt-1">Речі, які наші покупці обирають найчастіше.</p>
                 </div>
                 <div class="flex items-center space-x-2 mt-4 sm:mt-0">
-                    <button class="p-2 rounded-full border border-gray-300 hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-blue-500 bg-transparent" type="button" aria-label="Попередній слайд"><i class="fas fa-chevron-left text-gray-600" aria-hidden="true"></i></button>
-                    <button class="p-2 rounded-full border border-gray-300 hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-blue-500 bg-transparent" type="button" aria-label="Наступний слайд"><i class="fas fa-chevron-right text-gray-600" aria-hidden="true"></i></button>
+                    <button id="bestsellers-prev" class="p-2 rounded-full border border-gray-300 hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-blue-500 bg-transparent" type="button" aria-label="Попередній слайд"><i class="fas fa-chevron-left text-gray-600" aria-hidden="true"></i></button>
+                    <button id="bestsellers-next" class="p-2 rounded-full border border-gray-300 hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-blue-500 bg-transparent" type="button" aria-label="Наступний слайд"><i class="fas fa-chevron-right text-gray-600" aria-hidden="true"></i></button>
                 </div>
             </div>
 
@@ -341,7 +257,7 @@
             <img src="assets/images/галерея1.jpg"
                  alt="Колекція одягу БрендUa — фото 1"
                  loading="lazy"
-                 class="w-full h-auto object-contain rounded-xl shadow-md hover:scale-[1.02] transition duration-300 cursor-zoom-in"
+                 class="w-full h-auto object-contain rounded-xl shadow-md hover:scale-[1.02] transition duration-300 cursor-zoom-in" width="900" height="1200">
 
         </a>
 
@@ -352,7 +268,7 @@
             <img src="assets/images/галерея2.jpg"
                  alt="Колекція одягу БрендUa — фото 2"
                  loading="lazy"
-                 class="w-full h-auto object-contain rounded-xl shadow-md hover:scale-[1.02] transition duration-300 cursor-zoom-in"
+                 class="w-full h-auto object-contain rounded-xl shadow-md hover:scale-[1.02] transition duration-300 cursor-zoom-in" width="688" height="1223">
 
         </a>
 
@@ -363,7 +279,7 @@
             <img src="assets/images/галерея3.jpg"
                  alt="Колекція одягу БрендUa — фото 3"
                  loading="lazy"
-                class="w-full h-auto object-contain rounded-xl shadow-md hover:scale-[1.02] transition duration-300 cursor-zoom-in"
+                class="w-full h-auto object-contain rounded-xl shadow-md hover:scale-[1.02] transition duration-300 cursor-zoom-in" width="736" height="1104">
         </a>
 
         <!-- Фото 4 -->
@@ -373,7 +289,7 @@
             <img src="assets/images/галерея4.jpg"
                  alt="Колекція одягу БрендUa — фото 4"
                  loading="lazy"
-                 class="w-full h-auto object-contain rounded-xl shadow-md hover:scale-[1.02] transition duration-300 cursor-zoom-in"
+                 class="w-full h-auto object-contain rounded-xl shadow-md hover:scale-[1.02] transition duration-300 cursor-zoom-in" width="736" height="1104">
         </a>
 
     </div>
@@ -381,17 +297,6 @@
 
 
 
-        <!-- Блок Size Advisor -->
-        <section id="size-advisor" class="size-advisor-banner" aria-labelledby="advisor-title">
-            <div class="size-advisor-content">
-                <h2 id="advisor-title">Не впевнені у розмірі?</h2>
-                <p>Вкажіть свої параметри й отримайте рекомендацію. Обирайте одяг із впевненістю, а не навмання.<br><small>Займе близько 1 хвилини · Без реєстрації</small></p>
-            </div>
-            <div class="size-advisor-buttons">
-                <button class="open-size-modal btn-primary !bg-brand-primary hover:!bg-brand-ink-hover !text-white transition duration-200 hover:!shadow-md hover:!transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2" type="button">Підібрати розмір</button>
-                <a href="catalog.html" class="btn-secondary transition duration-200 hover:bg-brand-beige-hover hover:shadow-sm hover:!transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2">Каталог</a>
-            </div>
-        </section>
         <!-- Секція відео-презентації -->
     <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12" aria-labelledby="video-title">
         <div class="bg-brand-ink rounded-3xl p-8 sm:p-12 text-white text-center">
@@ -429,53 +334,6 @@
 
     </main>
 
- <!--
-   Багатоколонковий футер 
-    <footer class="bg-gray-900 text-gray-300 pt-12 pb-8 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-                <div class="space-y-3">
-                    <a href="index.html" class="inline-block focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md" aria-label="Головна сторінка">
-                        <img src="assets/images/logo.svg" alt="Логотип БрендUa" loading="lazy" class="h-12 w-auto brightness-0 invert">
-                    </a>
-                    <p class="text-sm text-gray-400 leading-relaxed">
-                        Український одяг на щодень.<br>Створено для твого комфорту.
-                    </p>
-                </div>
-
-                <div>
-                    <h2 class="text-white font-semibold text-base mb-3">Каталог</h2>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="catalog.html?cat=tshirts" class="hover:text-white focus:text-white focus:outline-none transition duration-200">Футболки</a></li>
-                        <li><a href="catalog.html?cat=hoodies" class="hover:text-white focus:text-white focus:outline-none transition duration-200">Світшоти та худі</a></li>
-                        <li><a href="catalog.html?cat=pants" class="hover:text-white focus:text-white focus:outline-none transition duration-200">Штани</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h2 class="text-white font-semibold text-base mb-3">Допомога покупцю</h2>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="delivery.html" class="hover:text-white focus:text-white focus:outline-none transition duration-200">Доставка й оплата</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h2 class="text-white font-semibold text-base mb-3">Зв'язок із нами</h2>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><span class="block">Пн–Пт: 09:00–18:00</span></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="border-t border-gray-800 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 space-y-4 sm:space-y-0">
-                <p>&copy; 2026 БрендUa. Всі права захищені.</p>
-                <div class="flex flex-wrap gap-x-6 gap-y-2">
-                    <a href="about.html" class="hover:text-white focus:text-white focus:outline-none transition duration-200">Політика конфіденційності</a>
-                    <a href="about.html" class="hover:text-white focus:text-white focus:outline-none transition duration-200">Публічна оферта</a>
-                </div>
-            </div>
-        </div>
-    </footer> -->
     <div id="site-footer"></div>
 
     <!-- МОДАЛЬНЕ ВІКНО «ПІДБІР РОЗМІРУ» -->
@@ -489,15 +347,15 @@
             
             <p class="text-gray-800 font-medium mb-6 text-base">Введіть дані для визначення розміру</p>
 
-            <form action="#" method="POST" class="space-y-4">
+            <form id="size-form" class="space-y-4">
                 <div>
                     <label for="height-input" class="sr-only">Зріст у сантиметрах</label>
-                    <input id="height-input" name="height" type="text" inputmode="decimal" placeholder="Зріст:" class="w-full px-4 py-3 text-gray-700 bg-brand-input/60 border border-brand-ink rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-ink">
+                    <input id="height-input" name="height" type="text" inputmode="decimal" placeholder="Зріст:" class="w-full px-4 py-3 text-gray-700 bg-brand-input/60 border border-brand-ink rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-ink" required>
                 </div>
 
                 <div>
                     <label for="weight-input" class="sr-only">Вага у кілограмах</label>
-                    <input id="weight-input" name="weight" type="text" inputmode="decimal" placeholder="Вага:" class="w-full px-4 py-3 text-gray-700 bg-brand-input/60 border border-brand-ink rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-ink">
+                    <input id="weight-input" name="weight" type="text" inputmode="decimal" placeholder="Вага:" class="w-full px-4 py-3 text-gray-700 bg-brand-input/60 border border-brand-ink rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-ink" required>
                 </div>
 
                 <div class="pt-2">
@@ -514,10 +372,20 @@
                 </div>
 
                 <div class="text-center pt-4">
-                    <button type="submit" class="!bg-brand-ink hover:!bg-brand-ink-hover !text-white font-medium px-8 py-2.5 rounded-full transition duration-200 shadow-md border-none cursor-pointer hover:!shadow-lg hover:!transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2">
+                    <button type="button" id="calculate-size" class="!bg-brand-ink hover:!bg-brand-ink-hover !text-white font-medium px-8 py-2.5 rounded-full transition duration-200 shadow-md border-none cursor-pointer hover:!shadow-lg hover:!transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2">
                         Розрахувати
                     </button>
                 </div>
+                <p id="size-error"
+   class="hidden text-red-600 text-sm mt-2"
+   role="alert"></p>
+
+<div id="size-result"
+     class="hidden mt-4 p-4 bg-gray-100 rounded-xl text-center"
+     role="status"
+     aria-live="polite">
+</div>
+                
             </form>
         </div>
     </div>
@@ -534,12 +402,72 @@
 
     <!-- Скрипти -->
     <script src="js/shop.js"></script>
+    <script src="js/hero-video.js" defer></script>
     <script>
         // Мобільне меню й пошук у шапці обслуговує js/shop.js (спільна шапка)
 
         // КОШИК І ОБРАНЕ: логіка в js/shop.js, стан зберігається в localStorage
-        document.getElementById('bestsellers').innerHTML = Shop.PRODUCTS.filter(p => p.bestseller).slice(0, 4).map(Shop.cardHTML).join('');
+        // Перші 4 бестселери залишаються без змін; ще 4 товари беремо з каталогу.
+        const existingBestsellers = Shop.PRODUCTS.filter(p => p.bestseller);
+        const additionalBestsellerIds = ['hoodie', 'cargo', 'sweatshirt', 'puffer'];
+        const additionalBestsellers = additionalBestsellerIds
+            .map(id => Shop.PRODUCTS.find(p => p.id === id))
+            .filter(Boolean);
+        const bestsellerProducts = [...existingBestsellers, ...additionalBestsellers]
+            .filter((product, index, all) => all.findIndex(item => item.id === product.id) === index);
+
+        const bestsellersGrid = document.getElementById('bestsellers');
+        bestsellersGrid.innerHTML = bestsellerProducts.map(Shop.cardHTML).join('');
+        // Прив'язуємо кошик і обране один раз до всіх 8 карток.
         Shop.bindCards(document);
+
+        const bestsellerCards = Array.from(bestsellersGrid.children);
+        let bestsellerStart = 0;
+
+        function bestsellerVisibleCount() {
+            const width = window.innerWidth;
+            if (width >= 1280) return 4;
+            if (width >= 1024) return 3;
+            if (width >= 640) return 2;
+            return 1;
+        }
+
+        function showBestsellers(animate = false) {
+            const total = bestsellerCards.length;
+            if (!total) return;
+            const visibleCount = Math.min(bestsellerVisibleCount(), total);
+
+            bestsellerCards.forEach((card, index) => {
+                const position = (index - bestsellerStart + total) % total;
+                const visible = position < visibleCount;
+                // Не створюємо нових карток: обробники кошика та обраного зберігаються.
+                card.style.display = visible ? '' : 'none';
+                card.style.order = String(position);
+                card.setAttribute('aria-hidden', String(!visible));
+            });
+
+            if (animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
+                typeof bestsellersGrid.animate === 'function') {
+                bestsellersGrid.animate([
+                    { opacity: 0.65, transform: 'translateY(6px)' },
+                    { opacity: 1, transform: 'translateY(0)' }
+                ], { duration: 240, easing: 'ease-out' });
+            }
+        }
+
+        function rotateBestsellers(direction) {
+            const total = bestsellerCards.length;
+            if (total < 2) return;
+            // За клік показуємо наступну групу: 4 / 3 / 2 / 1 залежно від екрана.
+            const step = Math.min(bestsellerVisibleCount(), total);
+            bestsellerStart = (bestsellerStart + direction * step + total) % total;
+            showBestsellers(true);
+        }
+
+        document.getElementById('bestsellers-prev').addEventListener('click', () => rotateBestsellers(-1));
+        document.getElementById('bestsellers-next').addEventListener('click', () => rotateBestsellers(1));
+        window.addEventListener('resize', () => showBestsellers());
+        showBestsellers();
 
         // ===== СМУЖКА ПЕРЕВАГ: дані тут, картки малюються скриптом =====
         const FEATURES = [
@@ -700,6 +628,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
-
+<script src="js/widget.js" defer></script>
 </body>
 </html>

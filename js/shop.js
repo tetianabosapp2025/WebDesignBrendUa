@@ -162,24 +162,31 @@
     const search = (id) => '<form action="catalog.html" method="GET" class="flex items-center gap-2"><label for="' + id + '" class="sr-only">Пошук товарів</label><input id="' + id + '" name="q" type="text" placeholder="Пошук товарів..." class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 bg-white"><button type="submit" aria-label="Шукати" class="!bg-brand-deep !text-white px-3 py-1.5 rounded-lg text-xs font-medium hover:!bg-brand-deep-hover transition"><i class="fas fa-search"></i></button></form>';
     const head = document.getElementById('site-header');
     if (head) {
-      head.innerHTML = '<header class="bg-white border-b border-gray-200 sticky top-0 z-40"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">' +
+      // sticky має стояти на контейнері #site-header: усередині нього шапка нікуди б не «їхала»
+      head.className = 'sticky top-0 z-40 transition-shadow duration-200';
+      const onScroll = () => head.classList.toggle('shadow-md', window.scrollY > 8);
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+      head.innerHTML = '<header class="bg-white border-b border-gray-200"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">' +
         '<a href="index.html" class="flex items-center" aria-label="БрендUa — головна сторінка"><img src="assets/images/logo.svg" alt="Логотип БрендUa"></a>' +
         '<nav class="hidden md:flex items-center space-x-8" aria-label="Головна навігація">' + nav('index.html', 'Головна', 'home') + nav('catalog.html', 'Каталог', 'catalog') + nav('about.html', 'Про нас', 'about') + nav('contacts.html', 'Контакти', 'contacts') + '</nav>' +
         '<div class="flex items-center gap-5"><div class="relative hidden sm:block"><button id="search-btn" type="button" aria-label="Пошук по сайту" aria-expanded="false" aria-controls="search-field" class="bg-transparent !text-gray-600 hover:!text-blue-600 border-none shadow-none cursor-pointer"><i class="fas fa-search"></i></button>' +
         '<div id="search-field" class="hidden absolute right-0 top-full mt-3 w-72 bg-white p-2.5 rounded-xl shadow-xl border border-gray-200 z-50">' + search('header-search') + '</div></div>' +
+        '<button class="theme-toggle" type="button" aria-label="Увімкнути темну тему" aria-pressed="false" title="Темна тема"><i class="fas fa-moon" aria-hidden="true"></i></button>' +
         '<a href="profile.html" aria-label="Особистий кабінет" class="hidden sm:block text-gray-600 hover:text-blue-600 transition"><i class="fas fa-user"></i></a>' +
         '<a href="cart.html" aria-label="Кошик покупок" class="text-gray-600 hover:text-blue-600 transition relative"><i class="fas fa-shopping-bag text-lg"></i>' + badge + '</a>' +
         '<button id="menu-btn" type="button" class="md:hidden bg-transparent !text-gray-700 hover:!text-blue-600 p-2 rounded-lg border-none" aria-label="Відкрити або закрити меню" aria-expanded="false" aria-controls="mobile-menu"><i class="fas fa-bars text-2xl"></i></button></div></div>' +
         '<div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 px-4 pt-3 pb-6 space-y-3">' + search('mobile-search') +
         '<nav class="flex flex-col gap-2" aria-label="Мобільне меню">' + nav('index.html', 'Головна', 'home', 'py-1') + nav('catalog.html', 'Каталог', 'catalog', 'py-1') + nav('about.html', 'Про нас', 'about', 'py-1') + nav('contacts.html', 'Контакти', 'contacts', 'py-1') + nav('profile.html', 'Особистий кабінет', 'profile', 'py-1') + '</nav></div></header>' +
         '<p id="cart-live-region" class="sr-only" aria-live="polite" aria-atomic="true"></p>';
+      if (window.BrendTheme) window.BrendTheme.refresh();
       const mBtn = document.getElementById('menu-btn'), mMenu = document.getElementById('mobile-menu');
       const sBtn = document.getElementById('search-btn'), sBox = document.getElementById('search-field');
       const setMenu = (o) => { mMenu.classList.toggle('hidden', !o); mBtn.setAttribute('aria-expanded', String(o)); };
       const setSearch = (o) => { sBox.classList.toggle('hidden', !o); sBtn.setAttribute('aria-expanded', String(o)); if (o) document.getElementById('header-search').focus(); };
       mBtn.addEventListener('click', () => setMenu(mBtn.getAttribute('aria-expanded') !== 'true'));
       sBtn.addEventListener('click', (e) => { e.stopPropagation(); setSearch(sBtn.getAttribute('aria-expanded') !== 'true'); });
-      document.addEventListener('click', (e) => { if (!sBox.contains(e.target)) setSearch(false); });
+      document.addEventListener('click', (e) => { if (!sBox.contains(e.target) && !sBtn.contains(e.target)) setSearch(false); });
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { setSearch(false); setMenu(false); } });
       window.addEventListener('resize', () => { if (window.innerWidth >= 768) setMenu(false); });
     }
@@ -200,6 +207,26 @@
     const page = document.body.dataset.page;
     if (page) layout(page);
     sync(false);
+
+    // Спільна кнопка «Повернутися нагору» для всіх сторінок.
+    const backToTop = document.createElement('button');
+    backToTop.type = 'button';
+    backToTop.className = 'back-to-top';
+    backToTop.setAttribute('aria-label', 'Повернутися нагору');
+    backToTop.title = 'Повернутися нагору';
+    backToTop.innerHTML = '<svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 14 7-7 7 7"/></svg>';
+    document.body.appendChild(backToTop);
+
+    const updateBackToTop = () => {
+      backToTop.classList.toggle('is-visible', window.scrollY > 350);
+    };
+    window.addEventListener('scroll', updateBackToTop, { passive: true });
+    updateBackToTop();
+
+    backToTop.addEventListener('click', () => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+    });
 
     const faviconLink = document.createElement('link');
 faviconLink.rel = 'icon';
