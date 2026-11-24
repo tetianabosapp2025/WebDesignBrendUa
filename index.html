@@ -6,7 +6,7 @@
     <script src="js/theme.js"></script>
     <title>БрендUa — Інтернет-магазин одягу</title>
     <meta name="description" content="Український одяг із бездоганною посадкою. Знайдіть свій розмір і базові речі для гардероба.">
-    <link rel="preload" as="image" href="assets/images/Hero_bg.png" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/images/Hero_bg.webp" fetchpriority="high">
 
     <!-- Підключення шрифтів Noto Sans TC та DM Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,7 +58,7 @@
         <section class="hero-section hero-with-video" aria-labelledby="hero-title" id="hero-banner">
             <!-- Відео відтворюється автоматично; фото залишається запасним фоном. -->
             <video class="hero-video" id="hero-video" muted playsinline loop preload="none"
-                   poster="assets/images/Hero_bg.png" aria-hidden="true" tabindex="-1">
+                   poster="assets/images/Hero_bg.webp" aria-hidden="true" tabindex="-1">
                 <source data-src="assets/video/video_content.webm" type="video/webm">
                 <source data-src="assets/video/video_content.mp4" type="video/mp4">
             </video>
@@ -392,13 +392,13 @@
 
 
 <!-- Бібліотека Swiper.js -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 
 <!-- Бібліотека Fancybox -->
-<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+
 
 <!-- Бібліотека Typed.js -->
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
 
     <!-- Скрипти -->
     <script src="js/shop.js"></script>
@@ -566,68 +566,7 @@
         }
     </script>
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    new Swiper('.reviews-swiper', {
-        loop: true,
-        spaceBetween: 24,
-        slidesPerView: 1,
-
-        autoplay: {
-            delay: 3500,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true
-        },
-
-        pagination: {
-            el: '.reviews-pagination',
-            clickable: true
-        },
-
-        navigation: {
-            nextEl: '.reviews-next',
-            prevEl: '.reviews-prev'
-        },
-
-        breakpoints: {
-            320: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            1024: { slidesPerView: 2 }
-        }
-    });
-});
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    Fancybox.bind("[data-fancybox='brand-gallery']", {
-        Carousel: {
-            transition: "fade"
-        },
-        Images: {
-            Panzoom: {
-                maxScale: 3
-            }
-        }
-    });
-});
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    new Typed('#typed-text', {
-        strings: [
-            'Український стиль для кожного.',
-            'Якість та комфорт щодня.',
-            'Знайди свій ідеальний образ.'
-        ],
-        typeSpeed: 50,
-        backSpeed: 30,
-        backDelay: 1500,
-        loop: true
-    });
-});
-</script>
+<script src="js/home-lazy.js" defer></script>
 <script src="js/widget.js" defer></script>
 </body>
 </html>
