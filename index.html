@@ -57,10 +57,10 @@
         <!-- Hero-секція -->
         <section class="hero-section hero-with-video" aria-labelledby="hero-title" id="hero-banner">
             <!-- Відео відтворюється автоматично; фото залишається запасним фоном. -->
-            <video class="hero-video" id="hero-video" muted playsinline loop preload="none"
+            <video class="hero-video" id="hero-video" autoplay muted playsinline loop preload="auto"
                    poster="assets/images/Hero_bg.webp" aria-hidden="true" tabindex="-1">
-                <source data-src="assets/video/video_content.webm" type="video/webm">
-                <source data-src="assets/video/video_content.mp4" type="video/mp4">
+                <source src="assets/video/video_content.webm" type="video/webm">
+                <source src="assets/video/video_content.mp4" type="video/mp4">
             </video>
             <div class="hero-overlay" aria-hidden="true"></div>
             <div class="hero-content">

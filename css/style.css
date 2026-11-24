@@ -213,7 +213,7 @@ header a img {
   align-items: center;
   background-image:
     linear-gradient(90deg, rgba(243, 236, 228, 0.98) 0%, rgba(243, 236, 228, 0.96) 48%, rgba(243, 236, 228, 0.5) 65%, rgba(243, 236, 228, 0) 82%),
-    url('../assets/images/Hero_bg.png');
+    url('../assets/images/Hero_bg.webp');
   background-color: var(--color-secondary);
   background-size: cover;
   background-position: center;
@@ -1001,7 +1001,7 @@ footer .border-t > .flex {
     padding-block: clamp(1.25rem, 6vw, 2.5rem);
     background-image:
       linear-gradient(90deg, rgba(243, 236, 228, 0.98) 0%, rgba(243, 236, 228, 0.92) 58%, rgba(243, 236, 228, 0.48) 100%),
-      url('../assets/images/Hero_bg.png');
+      url('../assets/images/Hero_bg.webp');
     background-position: center, right center;
   }
 
@@ -1135,7 +1135,7 @@ main.main-content > section[aria-labelledby="bestsellers-title"] > ul > li > a:f
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  background-image: url('../assets/images/Hero_bg.png');
+  background-image: url('../assets/images/Hero_bg.webp');
 }
 .hero-with-video .hero-video {
   position: absolute;
@@ -1327,51 +1327,4 @@ html[data-theme="dark"] .footer-wrapper p { color: #c9d1df; }
   html[data-theme="dark"] .hero-with-video .hero-overlay {
     background: linear-gradient(90deg,rgba(16,24,36,.96),rgba(16,24,36,.83) 64%,rgba(16,24,36,.55));
   }
-}
-
-
-/* Кнопка повернення нагору на всіх сторінках */
-.back-to-top {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
-  z-index: 35;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  padding: 0;
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  border-radius: 50%;
-  background-color: #1a2b4c;
-  color: #fff;
-  box-shadow: 0 5px 16px rgba(16, 25, 42, 0.2);
-  cursor: pointer;
-  visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(10px);
-  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease, background-color 0.2s ease;
-}
-.back-to-top.is-visible {
-  visibility: visible;
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
-}
-.back-to-top:hover { background-color: #29416d; }
-.back-to-top:focus-visible { outline: 3px solid #9eb9e8; outline-offset: 3px; }
-html[data-theme="dark"] .back-to-top {
-  background-color: #d0b999;
-  color: #172236;
-  border-color: #d0b999;
-}
-html[data-theme="dark"] .back-to-top:hover { background-color: #e1ccb0; }
-@media (max-width: 767px) {
-  .back-to-top { right: 16px; bottom: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); width: 44px; height: 44px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .back-to-top { transition: none; }
 }

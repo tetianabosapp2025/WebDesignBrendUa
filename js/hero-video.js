@@ -1,37 +1,25 @@
-/* БрендUa: постійне беззвучне відтворення Hero-відео після завантаження основного вмісту.
-   Фото Hero_bg.png завантажується першим та лишається запасним фоном.
-   Відео зупиняється тільки в неактивній вкладці або при prefers-reduced-motion. */
-(function () {
+/* Hero-відео: завантажується без очікування window.load/idle;
+   фото WebP використовується як резервний фон. */
+(() => {
   'use strict';
-
   const hero = document.getElementById('hero-banner');
   const video = document.getElementById('hero-video');
   if (!hero || !video) return;
 
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const sources = video.querySelectorAll('source[data-src]');
-  let sourcesLoaded = false;
-
-  function showPhoto() {
-    hero.classList.remove('is-video-playing');
-  }
-
-  function loadSources() {
-    if (sourcesLoaded) return;
-    sourcesLoaded = true;
-    sources.forEach(source => {
-      source.src = source.dataset.src;
-    });
-    video.load();
-  }
+  const showPhoto = () => hero.classList.remove('is-video-playing');
+  const showVideo = () => {
+    if (!motion.matches && !document.hidden) {
+      hero.classList.add('is-video-playing');
+    }
+  };
 
   function playVideo() {
-    if (document.hidden || motion.matches) return;
-    loadSources();
+    if (motion.matches || document.hidden) return;
     video.muted = true;
-    const playRequest = video.play();
-    if (playRequest && typeof playRequest.catch === 'function') {
-      playRequest.catch(showPhoto);
+    const request = video.play();
+    if (request && typeof request.catch === 'function') {
+      request.catch(showPhoto);
     }
   }
 
@@ -40,36 +28,14 @@
     showPhoto();
   }
 
-  video.addEventListener('playing', () => {
-    if (!motion.matches && !document.hidden) {
-      hero.classList.add('is-video-playing');
-    }
-  });
-  video.addEventListener('error', showPhoto);
+  video.addEventListener('playing', showVideo);
   video.addEventListener('pause', showPhoto);
-
-  // Спочатку малюємо сторінку й фото; відео починає завантажуватися після window.load.
-  // requestIdleCallback не блокує першочергові завдання браузера.
-  function startAfterPageLoad() {
-    if (document.hidden || motion.matches) return;
-    if ('requestIdleCallback' in window) {
-      window.requestIdleCallback(playVideo, { timeout: 1500 });
-    } else {
-      window.setTimeout(playVideo, 250);
-    }
-  }
-
-  if (document.readyState === 'complete') {
-    startAfterPageLoad();
-  } else {
-    window.addEventListener('load', startAfterPageLoad, { once: true });
-  }
-
+  video.addEventListener('error', showPhoto);
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) pauseVideo();
     else playVideo();
   });
-  window.addEventListener('pageshow', event => {
+  window.addEventListener('pageshow', (event) => {
     if (event.persisted) playVideo();
   });
 
@@ -81,5 +47,12 @@
     motion.addEventListener('change', onMotionChange);
   } else if (typeof motion.addListener === 'function') {
     motion.addListener(onMotionChange);
+  }
+
+  if (motion.matches || document.hidden) {
+    pauseVideo();
+  } else {
+    playVideo();
+    if (!video.paused && video.readyState >= 2) showVideo();
   }
 })();
