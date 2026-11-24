@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
     
     <!-- Підключення іконок Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <script src="js/fa-icons.js" defer></script>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -57,11 +57,12 @@
         <!-- Hero-секція -->
         <section class="hero-section hero-with-video" aria-labelledby="hero-title" id="hero-banner">
             <!-- Відео відтворюється автоматично; фото залишається запасним фоном. -->
-            <video class="hero-video" id="hero-video" autoplay muted playsinline loop preload="auto"
-                   poster="assets/images/Hero_bg.webp" aria-hidden="true" tabindex="-1">
-                <source src="assets/video/video_content.webm" type="video/webm">
-                <source src="assets/video/video_content.mp4" type="video/mp4">
-            </video>
+            <video class="hero-video" id="hero-video"
+       autoplay muted playsinline loop preload="auto"
+       poster="assets/images/Hero_bg.webp"
+       aria-hidden="true" tabindex="-1">
+    <source src="assets/video/video_content.mp4" type="video/mp4">
+</video>
             <div class="hero-overlay" aria-hidden="true"></div>
             <div class="hero-content">
                 <!-- Друкований рядок (Typed.js): курсивом, кольором бренду; min-h не дає тексту «стрибати» -->
