@@ -11,6 +11,16 @@
     document.head.appendChild(script);
   });
 
+  // CSS для секцій нижче першого екрана: не блокує початкове відображення Hero.
+  const loadStyle = (url) => new Promise((resolve, reject) => {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = url;
+    link.onload = resolve;
+    link.onerror = () => reject(new Error('Не вдалося завантажити стилі ' + url));
+    document.head.appendChild(link);
+  });
+
   function whenNear(selector, callback) {
     const element = document.querySelector(selector);
     if (!element) return;
@@ -35,7 +45,10 @@
 
   whenNear('.reviews-swiper', async () => {
     try {
-      await loadScript('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js');
+      await Promise.all([
+        loadStyle('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css'),
+        loadScript('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js')
+      ]);
       if (!window.Swiper) return;
       new window.Swiper('.reviews-swiper', {
         loop: true, spaceBetween: 24, slidesPerView: 1,
@@ -49,7 +62,10 @@
 
   whenNear('[data-fancybox="brand-gallery"]', async () => {
     try {
-      await loadScript('https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js');
+      await Promise.all([
+        loadStyle('https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css'),
+        loadScript('https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js')
+      ]);
       if (!window.Fancybox) return;
       window.Fancybox.bind('[data-fancybox="brand-gallery"]', {
         Carousel: { transition: 'fade' },
