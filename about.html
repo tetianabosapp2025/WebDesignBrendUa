@@ -8,8 +8,8 @@
     <meta name="description" content="БрендUa — одяг, пошитий в Україні. Власне виробництво, розумний підбір розміру Fit Confidence.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <script src="js/fa-icons.js" defer></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = { theme: { extend: { colors: { brand: {
@@ -93,7 +93,7 @@
 
         // Щоб додати ще фото, дописуйте об'єкти сюди: з двох і більше фото вмикається слайдер
         ABOUT.photos = [
-            { src: 'assets/images/Зображення%20виробництва.png', alt: 'Українське виробництво БрендUa', caption: 'Українське виробництво БрендUa' }
+            { src: 'assets/images/Зображення%20виробництва.webp', alt: 'Українське виробництво БрендUa', caption: 'Українське виробництво БрендUa' }
         ];
 
         const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

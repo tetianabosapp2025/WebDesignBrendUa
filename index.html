@@ -6,15 +6,15 @@
     <script src="js/theme.js"></script>
     <title>БрендUa — Інтернет-магазин одягу</title>
     <meta name="description" content="Український одяг із бездоганною посадкою. Знайдіть свій розмір і базові речі для гардероба.">
-    <link rel="preload" as="image" href="assets/images/Hero_bg.png" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/images/Hero_bg.webp" fetchpriority="high">
 
     <!-- Підключення шрифтів Noto Sans TC та DM Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     
     <!-- Підключення іконок Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <script src="js/fa-icons.js" defer></script>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -39,11 +39,7 @@
         };
     </script>
 
-<!-- Стилі Swiper.js -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-
-<!-- Стилі Fancybox -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css">
+<!-- Стилі Swiper і Fancybox підвантажуються js/home-lazy.js лише біля відповідних секцій. -->
 
     <!-- Головний файл стилів -->
     <link rel="stylesheet" href="css/style.css">
@@ -57,11 +53,12 @@
         <!-- Hero-секція -->
         <section class="hero-section hero-with-video" aria-labelledby="hero-title" id="hero-banner">
             <!-- Відео відтворюється автоматично; фото залишається запасним фоном. -->
-            <video class="hero-video" id="hero-video" muted playsinline loop preload="none"
-                   poster="assets/images/Hero_bg.png" aria-hidden="true" tabindex="-1">
-                <source data-src="assets/video/video_content.webm" type="video/webm">
-                <source data-src="assets/video/video_content.mp4" type="video/mp4">
-            </video>
+            <video class="hero-video" id="hero-video"
+       autoplay muted playsinline loop preload="auto"
+       poster="assets/images/Hero_bg.webp"
+       aria-hidden="true" tabindex="-1">
+    <source src="assets/video/video_content.mp4" type="video/mp4">
+</video>
             <div class="hero-overlay" aria-hidden="true"></div>
             <div class="hero-content">
                 <!-- Друкований рядок (Typed.js): курсивом, кольором бренду; min-h не дає тексту «стрибати» -->
@@ -94,7 +91,7 @@
             <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 <li class="bg-white rounded-xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300 hover:-translate-y-1">
                     <a href="catalog.html?cat=tshirts" class="block focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-xl">
-                        <img src="assets/images/Футболки-категорія.png" alt="Категорія Футболки" loading="lazy" class="w-full aspect-[16/9] object-cover">
+                        <img src="assets/images/Футболки-категорія.webp" alt="Категорія Футболки" loading="lazy" class="w-full aspect-[16/9] object-cover">
                         <div class="p-4 flex items-center justify-between">
                             <span class="font-semibold text-gray-900 text-lg">Футболки</span>
                             <i class="fas fa-arrow-right text-blue-600" aria-hidden="true"></i>
@@ -103,7 +100,7 @@
                 </li>
                 <li class="bg-white rounded-xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300 hover:-translate-y-1">
                     <a href="catalog.html?cat=hoodies" class="block focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-xl">
-                        <img src="assets/images/худі-категорія.png" alt="Категорія Світшоти та худі" loading="lazy" class="w-full aspect-[16/9] object-cover">
+                        <img src="assets/images/худі-категорія.webp" alt="Категорія Світшоти та худі" loading="lazy" class="w-full aspect-[16/9] object-cover">
                         <div class="p-4 flex items-center justify-between">
                             <span class="font-semibold text-gray-900 text-lg">Світшоти та худі</span>
                             <i class="fas fa-arrow-right text-blue-600" aria-hidden="true"></i>
@@ -112,7 +109,7 @@
                 </li>
                 <li class="bg-white rounded-xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300 hover:-translate-y-1">
                     <a href="catalog.html?cat=pants" class="block focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-xl">
-                        <img src="assets/images/штани-категорія.png" alt="Категорія Штани" loading="lazy" class="w-full aspect-[16/9] object-cover">
+                        <img src="assets/images/штани-категорія.webp" alt="Категорія Штани" loading="lazy" class="w-full aspect-[16/9] object-cover">
                         <div class="p-4 flex items-center justify-between">
                             <span class="font-semibold text-gray-900 text-lg">Штани</span>
                             <i class="fas fa-arrow-right text-blue-600" aria-hidden="true"></i>
@@ -251,10 +248,10 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
 
         <!-- Фото 1 -->
-        <a href="assets/images/галерея1.jpg"
+        <a href="assets/images/галерея1.webp"
            data-fancybox="brand-gallery"
            data-caption="Колекція БрендUa — фото 1">
-            <img src="assets/images/галерея1.jpg"
+            <img src="assets/images/галерея1.webp"
                  alt="Колекція одягу БрендUa — фото 1"
                  loading="lazy"
                  class="w-full h-auto object-contain rounded-xl shadow-md hover:scale-[1.02] transition duration-300 cursor-zoom-in" width="900" height="1200">
@@ -283,10 +280,10 @@
         </a>
 
         <!-- Фото 4 -->
-        <a href="assets/images/галерея4.jpg"
+        <a href="assets/images/галерея4.webp"
            data-fancybox="brand-gallery"
            data-caption="Колекція БрендUa — фото 4">
-            <img src="assets/images/галерея4.jpg"
+            <img src="assets/images/галерея4.webp"
                  alt="Колекція одягу БрендUa — фото 4"
                  loading="lazy"
                  class="w-full h-auto object-contain rounded-xl shadow-md hover:scale-[1.02] transition duration-300 cursor-zoom-in" width="736" height="1104">
@@ -303,7 +300,19 @@
             <h2 class="text-2xl sm:text-3xl font-bold mb-4 text-gray-300" id="video-title">Як ми створюємо ідеальну посадку</h2>
             <p class="text-gray-300 max-w-2xl mx-auto mb-8">Подивіться, як народжується кожна річ бренду БрендUa — від ескіза до готового виробу.</p>
             <div class="aspect-video w-full mx-auto overflow-hidden rounded-2xl shadow-2xl bg-black">
-                <iframe class="w-full h-full border-0" src="https://www.youtube.com/embed/XYFywDbJaqc?si" title="Презентація бренду БрендUa" loading="lazy" allowfullscreen></iframe>
+                <div class="w-full h-full" data-deferred-embed
+                     data-embed-src="https://www.youtube-nocookie.com/embed/XYFywDbJaqc?autoplay=1"
+                     data-embed-title="Презентація бренду БрендUa" data-embed-kind="video">
+                    <button type="button" data-embed-activate
+                            class="w-full h-full flex flex-col items-center justify-center gap-3 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-white"
+                            style="background-color:#10151f; min-height: 180px; cursor:pointer"
+                            aria-label="Відтворити відеопрезентацію БрендUa">
+                        <span aria-hidden="true" class="flex items-center justify-center rounded-full"
+                              style="width:64px;height:64px;background:#1e2b48;color:#fff;font-size:27px">▶</span>
+                        <span class="font-semibold">Відтворити відео</span>
+                        <span class="text-sm text-gray-300">YouTube завантажиться після натискання</span>
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -327,7 +336,18 @@
                 </div>
             </div>
             <div class="lg:col-span-2 overflow-hidden rounded-2xl border border-gray-200 shadow-sm min-h-[350px]">
-                <iframe class="w-full h-full min-h-[350px] border-0" src="https://www.google.com/maps?q=%D0%9A%D0%B8%D1%97%D0%B2,%20%D0%A5%D1%80%D0%B5%D1%89%D0%B0%D1%82%D0%B8%D0%BA%2022&output=embed" title="Карта розташування шоуруму БрендUa" loading="lazy" allowfullscreen></iframe>
+                <div class="w-full h-full min-h-[350px]" data-deferred-embed
+                     data-embed-src="https://www.google.com/maps?q=%D0%9A%D0%B8%D1%97%D0%B2,%20%D0%A5%D1%80%D0%B5%D1%89%D0%B0%D1%82%D0%B8%D0%BA%2022&amp;output=embed"
+                     data-embed-title="Карта розташування шоуруму БрендUa" data-embed-kind="map">
+                    <button type="button" data-embed-activate
+                            class="w-full h-full min-h-[350px] flex flex-col items-center justify-center gap-3 bg-brand-beige text-brand-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-brand-primary"
+                            style="cursor:pointer" aria-label="Показати Google Maps з розташуванням шоуруму">
+                        <span aria-hidden="true" style="font-size:32px">📍</span>
+                        <span class="font-semibold">Показати карту</span>
+                        <span class="text-sm">Київ, Хрещатик, 22</span>
+                        <span class="text-sm opacity-75">Google Maps завантажиться після натискання</span>
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -392,13 +412,13 @@
 
 
 <!-- Бібліотека Swiper.js -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 
 <!-- Бібліотека Fancybox -->
-<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+
 
 <!-- Бібліотека Typed.js -->
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
 
     <!-- Скрипти -->
     <script src="js/shop.js"></script>
@@ -566,68 +586,8 @@
         }
     </script>
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    new Swiper('.reviews-swiper', {
-        loop: true,
-        spaceBetween: 24,
-        slidesPerView: 1,
-
-        autoplay: {
-            delay: 3500,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true
-        },
-
-        pagination: {
-            el: '.reviews-pagination',
-            clickable: true
-        },
-
-        navigation: {
-            nextEl: '.reviews-next',
-            prevEl: '.reviews-prev'
-        },
-
-        breakpoints: {
-            320: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            1024: { slidesPerView: 2 }
-        }
-    });
-});
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    Fancybox.bind("[data-fancybox='brand-gallery']", {
-        Carousel: {
-            transition: "fade"
-        },
-        Images: {
-            Panzoom: {
-                maxScale: 3
-            }
-        }
-    });
-});
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    new Typed('#typed-text', {
-        strings: [
-            'Український стиль для кожного.',
-            'Якість та комфорт щодня.',
-            'Знайди свій ідеальний образ.'
-        ],
-        typeSpeed: 50,
-        backSpeed: 30,
-        backDelay: 1500,
-        loop: true
-    });
-});
-</script>
+<script src="js/home-lazy.js" defer></script>
 <script src="js/widget.js" defer></script>
+<script src="js/deferred-embeds.js" defer></script>
 </body>
 </html>

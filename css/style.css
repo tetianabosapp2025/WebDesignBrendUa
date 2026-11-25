@@ -213,7 +213,7 @@ header a img {
   align-items: center;
   background-image:
     linear-gradient(90deg, rgba(243, 236, 228, 0.98) 0%, rgba(243, 236, 228, 0.96) 48%, rgba(243, 236, 228, 0.5) 65%, rgba(243, 236, 228, 0) 82%),
-    url('../assets/images/Hero_bg.png');
+    url('../assets/images/Hero_bg.webp');
   background-color: var(--color-secondary);
   background-size: cover;
   background-position: center;
@@ -1001,7 +1001,7 @@ footer .border-t > .flex {
     padding-block: clamp(1.25rem, 6vw, 2.5rem);
     background-image:
       linear-gradient(90deg, rgba(243, 236, 228, 0.98) 0%, rgba(243, 236, 228, 0.92) 58%, rgba(243, 236, 228, 0.48) 100%),
-      url('../assets/images/Hero_bg.png');
+      url('../assets/images/Hero_bg.webp');
     background-position: center, right center;
   }
 
@@ -1135,7 +1135,7 @@ main.main-content > section[aria-labelledby="bestsellers-title"] > ul > li > a:f
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  background-image: url('../assets/images/Hero_bg.png');
+  background-image: url('../assets/images/Hero_bg.webp');
 }
 .hero-with-video .hero-video {
   position: absolute;
@@ -1328,7 +1328,6 @@ html[data-theme="dark"] .footer-wrapper p { color: #c9d1df; }
     background: linear-gradient(90deg,rgba(16,24,36,.96),rgba(16,24,36,.83) 64%,rgba(16,24,36,.55));
   }
 }
-
 
 /* Кнопка повернення нагору на всіх сторінках */
 .back-to-top {
